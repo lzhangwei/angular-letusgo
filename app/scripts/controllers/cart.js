@@ -32,6 +32,14 @@ angular.module('angularLetusgoApp')
             }));
         };
 
+        $scope.isShow = function(){
+            if(cart.cartItemList.length === 0){
+                return false;
+            } else {
+                return true;
+            }
+        };
+
     });
 
 function sum(array) {
