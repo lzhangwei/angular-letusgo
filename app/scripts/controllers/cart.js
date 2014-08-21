@@ -10,11 +10,32 @@ angular.module('angularLetusgoApp')
 
         $scope.cartItemGroup = cart.categoryCartItem();
 
+        $scope.total = sum(_.map(cart.cartItemList, function(cartItem){
+            return cartItem.item.price * cartItem.num;
+        }));
+
         $scope.addCartItemClick = function(cartItem) {
             cart.addCartItem(cartItem.item);
+            $scope.$emit('to-parent-addamounts');
+            $scope.total = sum(_.map(cart.cartItemList, function(cartItem){
+                return cartItem.item.price * cartItem.num;
+            }));
         };
 
         $scope.reduceCartItemClick = function(cartItem) {
             cart.reduceCartItem(cartItem.item);
+            $scope.$emit('to-parent-addamounts');
+            $scope.total = sum(_.map(cart.cartItemList, function(cartItem){
+                return cartItem.item.price * cartItem.num;
+            }));
         };
+
     });
+
+function sum(array) {
+    var sum = 0;
+    _.forEach(array, function(item){
+        sum += item;
+    })
+    return sum;
+}

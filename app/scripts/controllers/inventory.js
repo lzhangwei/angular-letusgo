@@ -16,6 +16,11 @@ angular.module('angularLetusgoApp')
         $scope.inventorytotal = sum(_.map($scope.cartItemList, function(cartItem){
             return cartItem.item.price * cartItem.num;
         }));
+
+        $scope.okPayClick = function() {
+            cleanStorage();
+            $scope.$emit('to-parent-addamounts');
+        };
     });
 
 function sum(array) {
