@@ -17,6 +17,7 @@ angular.module('angularLetusgoApp')
         $scope.addCartItemClick = function(cartItem) {
             cart.addCartItem(cartItem.item);
             $scope.$emit('to-parent-addamounts');
+            $scope.cartItemGroup = cart.categoryCartItem();
             $scope.total = sum(_.map(cart.cartItemList, function(cartItem){
                 return cartItem.item.price * cartItem.num;
             }));
@@ -25,6 +26,7 @@ angular.module('angularLetusgoApp')
         $scope.reduceCartItemClick = function(cartItem) {
             cart.reduceCartItem(cartItem.item);
             $scope.$emit('to-parent-addamounts');
+            $scope.cartItemGroup = cart.categoryCartItem();
             $scope.total = sum(_.map(cart.cartItemList, function(cartItem){
                 return cartItem.item.price * cartItem.num;
             }));
