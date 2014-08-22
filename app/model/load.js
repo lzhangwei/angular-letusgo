@@ -2,9 +2,6 @@
  * Created by zhangwei on 14-8-14.
  */
 function loadAllItems() {
-    Storage.removeItem('items');
-    Storage.removeItem('cartItems');
-    Storage.addItem('amounts',0);
 
     var item1 = new Item('ITEM000000', '可口可乐', '瓶', 3.00, '饮料');
     item1.storageItem();

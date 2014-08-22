@@ -6,6 +6,8 @@
 angular.module('angularLetusgoApp')
     .controller('ListCtrl', function ($scope) {
 
+        $scope.$emit('to-parent-inlist');
+
         var cart = new Cart();
 
         $scope.items = Storage.getArrayItem('items');

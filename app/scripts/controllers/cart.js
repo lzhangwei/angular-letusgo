@@ -6,6 +6,8 @@
 angular.module('angularLetusgoApp')
     .controller('CartCtrl', function ($scope) {
 
+        $scope.$emit('to-parent-incart');
+
         var cart = new Cart();
 
         $scope.cartItemGroup = cart.categoryCartItem();
