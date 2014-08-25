@@ -12,6 +12,4 @@ angular.module('angularLetusgoApp')
 
         $scope.$emit('to-parent-inmain');
 
-        loadAllItems();
-
     });

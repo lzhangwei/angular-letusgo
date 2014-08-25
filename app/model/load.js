@@ -2,7 +2,7 @@
  * Created by zhangwei on 14-8-14.
  */
 function loadAllItems() {
-
+    Storage.removeItem('items');
     var item1 = new Item('ITEM000000', '可口可乐', '瓶', 3.00, '饮料');
     item1.storageItem();
     var item2 = new Item('ITEM000001', '雪碧', '瓶', 3.00, '饮料');

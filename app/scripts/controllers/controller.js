@@ -13,21 +13,21 @@ angular.module('angularLetusgoApp')
         });
 
         $scope.$on('to-parent-inmain', function() {
-            $scope.mainbar = 'active';
-            $scope.listbar = '';
-            $scope.cartbar = '';
+            $scope.activeMainbar = true;
+            $scope.activeListbar = false;
+            $scope.activeCartbar = false;
         });
 
         $scope.$on('to-parent-inlist', function() {
-            $scope.mainbar = '';
-            $scope.listbar = 'active';
-            $scope.cartbar = '';
+            $scope.activeMainbar = false;
+            $scope.activeListbar = true;
+            $scope.activeCartbar = false;
         });
 
         $scope.$on('to-parent-incart', function() {
-            $scope.mainbar = '';
-            $scope.listbar = '';
-            $scope.cartbar = 'active';
+            $scope.activeMainbar = false;
+            $scope.activeListbar = false;
+            $scope.activeCartbar = true;
         });
 
     });
