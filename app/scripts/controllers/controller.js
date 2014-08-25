@@ -7,8 +7,7 @@ angular.module('angularLetusgoApp')
     .controller('IndexController', function ($scope) {
         $scope.amounts = +Storage.getItem('amounts') || 0;
 
-        $scope.$on('to-parent-addamounts', function() {
-            //$scope.amounts += 1;
+        $scope.$on('to-parent-changeamounts', function() {
             $scope.amounts = Storage.getItem('amounts');
         });
 
@@ -19,6 +18,7 @@ angular.module('angularLetusgoApp')
         });
 
         $scope.$on('to-parent-inlist', function() {
+            $scope.amounts = Storage.getItem('amounts');
             $scope.activeMainbar = false;
             $scope.activeListbar = true;
             $scope.activeCartbar = false;

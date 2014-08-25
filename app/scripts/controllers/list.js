@@ -4,17 +4,16 @@
 'use strict';
 
 angular.module('angularLetusgoApp')
-    .controller('ListCtrl', function ($scope) {
+    .controller('ListCtrl', function ($scope ,loadService, cartService) {
 
-        loadAllItems();
+        loadService.loadAllItems();
 
         $scope.$emit('to-parent-inlist');
 
-        var cart = new Cart();
-
         $scope.items = Storage.getArrayItem('items');
         $scope.addCartItem = function(item) {
-            cart.addCartItem(item);
-            $scope.$emit('to-parent-addamounts');
+            var cartItemList = cartService.getCartItemList();
+            cartService.addCartItem(item, cartItemList);
+            $scope.$emit('to-parent-changeamounts');
         }
     });

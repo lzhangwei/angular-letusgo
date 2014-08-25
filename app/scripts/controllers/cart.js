@@ -1,41 +1,41 @@
-/**
- * Created by zhangwei on 14-8-20.
- */
 'use strict';
 
 angular.module('angularLetusgoApp')
-    .controller('CartCtrl', function ($scope) {
+    .controller('CartCtrl', function ($scope, cartService) {
 
         $scope.$emit('to-parent-incart');
 
-        var cart = new Cart();
+        var cartItemList = cartService.getCartItemList();
 
-        $scope.cartItemGroup = cart.categoryCartItem();
+        $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
 
-        $scope.total = sum(_.map(cart.cartItemList, function(cartItem){
+        $scope.total = sum(_.map(cartItemList, function(cartItem){
             return cartItem.item.price * cartItem.num;
         }));
 
         $scope.addCartItemClick = function(cartItem) {
-            cart.addCartItem(cartItem.item);
-            $scope.$emit('to-parent-addamounts');
-            $scope.cartItemGroup = cart.categoryCartItem();
-            $scope.total = sum(_.map(cart.cartItemList, function(cartItem){
+            $scope.$emit('to-parent-changeamounts');
+            var cartItemList = cartService.getCartItemList();
+            cartService.addCartItem(cartItem.item, cartItemList);
+            $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
+            $scope.total = sum(_.map(cartItemList, function(cartItem){
                 return cartItem.item.price * cartItem.num;
             }));
         };
 
         $scope.reduceCartItemClick = function(cartItem) {
-            cart.reduceCartItem(cartItem.item);
-            $scope.$emit('to-parent-addamounts');
-            $scope.cartItemGroup = cart.categoryCartItem();
-            $scope.total = sum(_.map(cart.cartItemList, function(cartItem){
+            $scope.$emit('to-parent-changeamounts');
+            var cartItemList = cartService.getCartItemList();
+            cartService.reduceCartItem(cartItem.item, cartItemList);
+            $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
+            $scope.total = sum(_.map(cartItemList, function(cartItem){
                 return cartItem.item.price * cartItem.num;
             }));
         };
 
         $scope.isShow = function(){
-            if(cart.cartItemList.length === 0){
+            var cartItemList = cartService.getCartItemList();
+            if(cartItemList.length === 0){
                 return false;
             } else {
                 return true;
