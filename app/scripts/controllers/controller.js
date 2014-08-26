@@ -4,11 +4,12 @@
 'use strict';
 
 angular.module('angularLetusgoApp')
-    .controller('IndexController', function ($scope) {
-        $scope.amounts = +Storage.getItem('amounts') || 0;
+    .controller('IndexController', function ($scope, localStorageService) {
+        localStorageService.set('amounts', 0);
+        $scope.amounts = localStorageService.get('amounts');
 
         $scope.$on('to-parent-changeamounts', function() {
-            $scope.amounts = Storage.getItem('amounts');
+            $scope.amounts = localStorageService.get('amounts');
         });
 
         $scope.$on('to-parent-inmain', function() {
@@ -18,7 +19,7 @@ angular.module('angularLetusgoApp')
         });
 
         $scope.$on('to-parent-inlist', function() {
-            $scope.amounts = Storage.getItem('amounts');
+            $scope.amounts = localStorageService.get('amounts');
             $scope.activeMainbar = false;
             $scope.activeListbar = true;
             $scope.activeCartbar = false;

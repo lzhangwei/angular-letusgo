@@ -1,10 +1,6 @@
 angular.module('angularLetusgoApp')
     .service('cartService', function(){
 
-        this.getCartItemList = function(){
-            return Storage.getArrayItem('cartItems') || [];
-        };
-
         this.categoryCartItem = function(cartItemList) {
             var cartItemGroup = _.map(_.groupBy(cartItemList, function(cartItem) {
                 return cartItem.item.category;
@@ -18,26 +14,31 @@ angular.module('angularLetusgoApp')
 
             if(curCartItem!==undefined){
                 curCartItem.num++;
-                Storage.changeArrayItem('cartItems',curCartItem);
+                _.find(cartItemList,function(object){
+                    if(object.item.barcode === curCartItem.item.barcode){
+                        object.num = curCartItem.num;
+                    }
+                });
             }else{
                 var cartItem = {'item':curitem, 'num':1};
                 cartItemList.push(cartItem);
-                Storage.addArrayItem('cartItems',cartItem);
             }
-            var t2 = +Storage.getItem('amounts') + 1;
-            Storage.addItem('amounts',t2);
+            return cartItemList;
         };
 
         this.reduceCartItem = function(curitem, cartItemList) {
             var index = _.findIndex(cartItemList,{'item':curitem});
             cartItemList[index].num--;
             if(cartItemList[index].num > 0){
-                Storage.changeArrayItem('cartItems',cartItemList[index]);
+                _.find(cartItemList,function(object){
+                    if(object.item.barcode === cartItemList[index].item.barcode){
+                        object.num = cartItemList[index].num;
+                    }
+                });
             } else {
-                Storage.removeInArray('cartItems',cartItemList[index]);
                 _.remove(cartItemList,cartItemList[index]);
             }
-            var t2 = +Storage.getItem('amounts') - 1;
-            Storage.addItem('amounts',t2);
+
+            return  cartItemList;
         };
     });

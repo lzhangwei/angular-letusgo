@@ -15,8 +15,12 @@ angular
         'ngResource',
         'ngRoute',
         'ngSanitize',
-        'ngTouch'
+        'ngTouch',
+        'LocalStorageModule'
     ])
+    .config(function(localStorageServiceProvider){
+        localStorageServiceProvider.setPrefix('ls');
+    })
     .config(function ($routeProvider) {
         $routeProvider
             .when('/', {

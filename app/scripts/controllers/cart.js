@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('angularLetusgoApp')
-    .controller('CartCtrl', function ($scope, cartService) {
+    .controller('CartCtrl', function ($scope, cartService, localStorageService) {
 
         $scope.$emit('to-parent-incart');
 
-        var cartItemList = cartService.getCartItemList();
+        var cartItemList = localStorageService.get('cartItems');
 
         $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
 
@@ -14,27 +14,37 @@ angular.module('angularLetusgoApp')
         }));
 
         $scope.addCartItemClick = function(cartItem) {
-            $scope.$emit('to-parent-changeamounts');
-            var cartItemList = cartService.getCartItemList();
-            cartService.addCartItem(cartItem.item, cartItemList);
+
+            cartItemList = localStorageService.get('cartItems') || [];
+            cartItemList = cartService.addCartItem(cartItem.item, cartItemList);
+            localStorageService.set('cartItems', cartItemList);
             $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
             $scope.total = sum(_.map(cartItemList, function(cartItem){
                 return cartItem.item.price * cartItem.num;
             }));
+
+            localStorageService.set('amounts', +localStorageService.get('amounts') + 1);
+
+            $scope.$emit('to-parent-changeamounts');
         };
 
         $scope.reduceCartItemClick = function(cartItem) {
-            $scope.$emit('to-parent-changeamounts');
-            var cartItemList = cartService.getCartItemList();
-            cartService.reduceCartItem(cartItem.item, cartItemList);
+
+            cartItemList = localStorageService.get('cartItems');
+            cartItemList = cartService.reduceCartItem(cartItem.item, cartItemList);
+            localStorageService.set('cartItems', cartItemList);
             $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
             $scope.total = sum(_.map(cartItemList, function(cartItem){
                 return cartItem.item.price * cartItem.num;
             }));
+
+            localStorageService.set('amounts', +localStorageService.get('amounts') - 1);
+
+            $scope.$emit('to-parent-changeamounts');
         };
 
         $scope.isShow = function(){
-            var cartItemList = cartService.getCartItemList();
+            cartItemList = localStorageService.get('cartItems');
             if(cartItemList.length === 0){
                 return false;
             } else {
