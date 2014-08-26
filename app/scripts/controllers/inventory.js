@@ -12,7 +12,7 @@ angular.module('angularLetusgoApp')
         $scope.curdate = moment(new Date()).format("YYYY年MM月DD日 HH:mm:ss");
         $scope.cartItemList = localStorageService.get('cartItems');
 
-        $scope.inventorytotal = sum(_.map($scope.cartItemList, function(cartItem){
+        $scope.inventorytotal = cartService.sum(_.map($scope.cartItemList, function(cartItem){
             return cartItem.item.price * cartItem.num;
         }));
 
@@ -22,11 +22,3 @@ angular.module('angularLetusgoApp')
             $scope.$emit('to-parent-addamounts');
         };
     });
-
-function sum(array) {
-    var sum = 0;
-    _.forEach(array, function(item){
-        sum += item;
-    })
-    return sum;
-}

@@ -41,4 +41,12 @@ angular.module('angularLetusgoApp')
 
             return  cartItemList;
         };
+
+        this.sum = function(array) {
+            var sum = 0;
+            _.forEach(array, function(item){
+                sum += item;
+            })
+            return sum;
+        };
     });

@@ -9,7 +9,7 @@ angular.module('angularLetusgoApp')
 
         $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
 
-        $scope.total = sum(_.map(cartItemList, function(cartItem){
+        $scope.total = cartService.sum(_.map(cartItemList, function(cartItem){
             return cartItem.item.price * cartItem.num;
         }));
 
@@ -19,7 +19,7 @@ angular.module('angularLetusgoApp')
             cartItemList = cartService.addCartItem(cartItem.item, cartItemList);
             localStorageService.set('cartItems', cartItemList);
             $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
-            $scope.total = sum(_.map(cartItemList, function(cartItem){
+            $scope.total = cartService.sum(_.map(cartItemList, function(cartItem){
                 return cartItem.item.price * cartItem.num;
             }));
 
@@ -34,7 +34,7 @@ angular.module('angularLetusgoApp')
             cartItemList = cartService.reduceCartItem(cartItem.item, cartItemList);
             localStorageService.set('cartItems', cartItemList);
             $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
-            $scope.total = sum(_.map(cartItemList, function(cartItem){
+            $scope.total = cartService.sum(_.map(cartItemList, function(cartItem){
                 return cartItem.item.price * cartItem.num;
             }));
 
@@ -53,11 +53,3 @@ angular.module('angularLetusgoApp')
         };
 
     });
-
-function sum(array) {
-    var sum = 0;
-    _.forEach(array, function(item){
-        sum += item;
-    })
-    return sum;
-}
