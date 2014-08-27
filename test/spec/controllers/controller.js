@@ -19,4 +19,5 @@ describe('Controller: IndexController', function () {
     it('should attach amounts to the scope', function () {
         expect(scope.amounts !== undefined).toBe(true);
     });
+
 });

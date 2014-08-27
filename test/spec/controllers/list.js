@@ -16,7 +16,22 @@ describe('Controller: ListCtrl', function () {
         });
     }));
 
-//    it('should attach a list of awesomeThings to the scope', function () {
-//        expect(scope.awesomeThings.length).toBe(3);
+//    var mockService = {
+//        notes: ['note1', 'note2'], //仅仅初始化两个项目
+//        get: function() {
+//            return this.notes;
+//        },
+//        put: function(content) {
+//            this.notes.push(content);
+//        }
+//    };
+
+    it('should attach a list of awesomeThings to the scope', function () {
+        expect(scope.items.length).toBe(6);
+    });
+
+//    it('should call cart service add cart item function if a add button is clicked on', function() {
+//
 //    });
+
 });
