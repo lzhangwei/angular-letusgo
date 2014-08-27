@@ -1,5 +1,5 @@
 angular.module('angularLetusgoApp')
-    .service('cartService', function(){
+    .service('cartService', function(localStorageService){
 
         this.categoryCartItem = function(cartItemList) {
             var cartItemGroup = _.map(_.groupBy(cartItemList, function(cartItem) {
@@ -8,7 +8,9 @@ angular.module('angularLetusgoApp')
             return cartItemGroup;
         };
 
-        this.addCartItem = function(curitem, cartItemList) {
+        this.addCartItem = function(curitem) {
+
+            var cartItemList = localStorageService.get('cartItems') || [];
 
             var curCartItem = _.find(cartItemList, {'item':curitem});
 
@@ -23,10 +25,15 @@ angular.module('angularLetusgoApp')
                 var cartItem = {'item':curitem, 'num':1};
                 cartItemList.push(cartItem);
             }
+            localStorageService.set('cartItems', cartItemList);
+            localStorageService.set('amounts', +localStorageService.get('amounts')+1);
             return cartItemList;
         };
 
-        this.reduceCartItem = function(curitem, cartItemList) {
+        this.reduceCartItem = function(curitem) {
+
+            var cartItemList = localStorageService.get('cartItems');
+
             var index = _.findIndex(cartItemList,{'item':curitem});
             cartItemList[index].num--;
             if(cartItemList[index].num > 0){
@@ -38,15 +45,22 @@ angular.module('angularLetusgoApp')
             } else {
                 _.remove(cartItemList,cartItemList[index]);
             }
-
+            localStorageService.set('cartItems', cartItemList);
+            localStorageService.set('amounts', +localStorageService.get('amounts')-1);
             return  cartItemList;
         };
 
-        this.sum = function(array) {
+        this.totalPrice = function(cartItemList) {
+
+            var array = _.map(cartItemList, function(cartItem){
+                return cartItem.item.price * cartItem.num;
+            });
+
             var sum = 0;
             _.forEach(array, function(item){
                 sum += item;
             })
+
             return sum;
         };
     });

@@ -8,13 +8,12 @@
  * Controller of the angularLetusgoApp
  */
 angular.module('angularLetusgoApp')
-    .controller('InventoryCtrl', function ($scope, cartService, loadService, localStorageService) {
+    .controller('InventoryCtrl', function ($scope, cartService, localStorageService) {
+
         $scope.curdate = moment(new Date()).format("YYYY年MM月DD日 HH:mm:ss");
         $scope.cartItemList = localStorageService.get('cartItems');
 
-        $scope.inventorytotal = cartService.sum(_.map($scope.cartItemList, function(cartItem){
-            return cartItem.item.price * cartItem.num;
-        }));
+        $scope.inventorytotal = cartService.totalPrice($scope.cartItemList);
 
         $scope.okPayClick = function() {
             localStorageService.remove('cartItems');

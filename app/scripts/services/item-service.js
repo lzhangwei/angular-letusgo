@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('angularLetusgoApp')
-    .service('loadService', function () {
+    .service('itemService', function (localStorageService) {
 
         this.loadAllItems = function(){
 
@@ -13,7 +13,11 @@ angular.module('angularLetusgoApp')
             var item4 = {'barcode': 'ITEM000003', 'name': '荔枝', 'unit': '斤', 'price': 15.00, 'category': '水果'};
             var item5 = {'barcode': 'ITEM000004', 'name': '电池', 'unit': '个', 'price': 2.00, 'category': '生活用品'};
             var item6 = {'barcode': 'ITEM000005', 'name': '方便面', 'unit': '袋', 'price': 4.50, 'category': '食品'};
-            return [item1,item2,item3,item4,item5,item6];
+            var items = [item1,item2,item3,item4,item5,item6];
+
+            localStorageService.set('items', items);
+
+            return items;
         };
 
 

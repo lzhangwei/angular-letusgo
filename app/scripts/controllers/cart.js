@@ -9,36 +9,24 @@ angular.module('angularLetusgoApp')
 
         $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
 
-        $scope.total = cartService.sum(_.map(cartItemList, function(cartItem){
-            return cartItem.item.price * cartItem.num;
-        }));
+        $scope.total = cartService.totalPrice(cartItemList);
 
         $scope.addCartItemClick = function(cartItem) {
 
-            cartItemList = localStorageService.get('cartItems') || [];
-            cartItemList = cartService.addCartItem(cartItem.item, cartItemList);
-            localStorageService.set('cartItems', cartItemList);
-            $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
-            $scope.total = cartService.sum(_.map(cartItemList, function(cartItem){
-                return cartItem.item.price * cartItem.num;
-            }));
+            cartItemList = cartService.addCartItem(cartItem.item);
 
-            localStorageService.set('amounts', +localStorageService.get('amounts') + 1);
+            $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
+            $scope.total = cartService.totalPrice(cartItemList);
 
             $scope.$emit('to-parent-changeamounts');
         };
 
         $scope.reduceCartItemClick = function(cartItem) {
 
-            cartItemList = localStorageService.get('cartItems');
-            cartItemList = cartService.reduceCartItem(cartItem.item, cartItemList);
-            localStorageService.set('cartItems', cartItemList);
-            $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
-            $scope.total = cartService.sum(_.map(cartItemList, function(cartItem){
-                return cartItem.item.price * cartItem.num;
-            }));
+            cartItemList = cartService.reduceCartItem(cartItem.item);
 
-            localStorageService.set('amounts', +localStorageService.get('amounts') - 1);
+            $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
+            $scope.total = cartService.totalPrice(cartItemList);
 
             $scope.$emit('to-parent-changeamounts');
         };
