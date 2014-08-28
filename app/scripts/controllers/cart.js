@@ -1,43 +1,43 @@
 'use strict';
 
 angular.module('angularLetusgoApp')
-    .controller('CartCtrl', function ($scope, cartService, localStorageService) {
+  .controller('CartCtrl', function ($scope, cartService) {
 
-        $scope.$emit('to-parent-incart');
+    $scope.$emit('to-parent-incart');
 
-        var cartItemList = localStorageService.get('cartItems');
+    var cartItemList = cartService.getCartItem();
 
-        $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
+    $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
 
-        $scope.total = cartService.totalPrice(cartItemList);
+    $scope.total = cartService.totalPrice(cartItemList);
 
-        $scope.addCartItemClick = function(cartItem) {
+    $scope.addCartItemClick = function (cartItem) {
 
-            cartItemList = cartService.addCartItem(cartItem.item);
+      cartItemList = cartService.addCartItem(cartItem.item);
 
-            $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
-            $scope.total = cartService.totalPrice(cartItemList);
+      $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
+      $scope.total = cartService.totalPrice(cartItemList);
 
-            $scope.$emit('to-parent-changeamounts');
-        };
+      $scope.$emit('to-parent-changeamounts');
+    };
 
-        $scope.reduceCartItemClick = function(cartItem) {
+    $scope.reduceCartItemClick = function (cartItem) {
 
-            cartItemList = cartService.reduceCartItem(cartItem.item);
+      cartItemList = cartService.reduceCartItem(cartItem.item);
 
-            $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
-            $scope.total = cartService.totalPrice(cartItemList);
+      $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
+      $scope.total = cartService.totalPrice(cartItemList);
 
-            $scope.$emit('to-parent-changeamounts');
-        };
+      $scope.$emit('to-parent-changeamounts');
+    };
 
-        $scope.isShow = function(){
-            cartItemList = localStorageService.get('cartItems');
-            if(cartItemList.length === 0){
-                return false;
-            } else {
-                return true;
-            }
-        };
+    $scope.isShow = function () {
+      cartItemList = cartService.getCartItem();
+      if (cartItemList.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    };
 
-    });
+  });

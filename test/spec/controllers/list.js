@@ -2,19 +2,19 @@
 
 describe('Controller: ListCtrl', function () {
 
-    // load the controller's module
-    beforeEach(module('angularLetusgoApp'));
+  // load the controller's module
+  beforeEach(module('angularLetusgoApp'));
 
-    var ListCtrl,
-        scope;
+  var ListCtrl,
+    scope;
 
-    // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope) {
-        scope = $rootScope.$new();
-        ListCtrl = $controller('ListCtrl', {
-            $scope: scope
-        });
-    }));
+  // Initialize the controller and a mock scope
+  beforeEach(inject(function ($controller, $rootScope) {
+    scope = $rootScope.$new();
+    ListCtrl = $controller('ListCtrl', {
+      $scope: scope
+    });
+  }));
 
 //    var mockService = {
 //        notes: ['note1', 'note2'], //仅仅初始化两个项目
@@ -26,9 +26,9 @@ describe('Controller: ListCtrl', function () {
 //        }
 //    };
 
-    it('should attach a list of awesomeThings to the scope', function () {
-        expect(scope.items.length).toBe(6);
-    });
+  it('should attach a list of awesomeThings to the scope', function () {
+    expect(scope.items.length).toBe(6);
+  });
 
 //    it('should call cart service add cart item function if a add button is clicked on', function() {
 //

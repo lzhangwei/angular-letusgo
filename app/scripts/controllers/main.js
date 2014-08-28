@@ -8,8 +8,8 @@
  * Controller of the angularLetusgoApp
  */
 angular.module('angularLetusgoApp')
-    .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope) {
 
-        $scope.$emit('to-parent-inmain');
+    $scope.$emit('to-parent-inmain');
 
-    });
+  });

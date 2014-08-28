@@ -1,69 +1,85 @@
 angular.module('angularLetusgoApp')
-    .service('cartService', function (localStorageService) {
+  .service('cartService', function (localStorageService) {
+    this.getCartItem = function() {
+      return localStorageService.get('cartItems');;
+    };
 
-        this.categoryCartItem = function (cartItemList) {
-            var cartItemGroup = _.map(_.groupBy(cartItemList, function (cartItem) {
-                return cartItem.item.category;
-            }));
-            return cartItemGroup;
-        };
+    this.getAmount = function() {
+      return localStorageService.get('amounts');
+    };
 
-        this.addCartItem = function (curitem) {
+    this.setAmount = function(amount) {
+      localStorageService.set('amounts',amount);
+    };
 
-            var cartItemList = localStorageService.get('cartItems') || [];
+    this.categoryCartItem = function (cartItemList) {
+      var cartItemGroup = _.map(_.groupBy(cartItemList, function (cartItem) {
+        return cartItem.item.category;
+      }));
+      return cartItemGroup;
+    };
 
-            if (_.any(cartItemList, function (item) {
-                if (item.item.barcode === curitem.barcode) {
-                    return true;
-                }
-            })) {
-                _.find(cartItemList, function (object) {
-                    if (object.item.barcode === curitem.barcode) {
-                        object.num++;
-                    }
-                });
-            } else {
-                var cartItem = {'item': curitem, 'num': 1};
-                cartItemList.push(cartItem);
-            }
-            localStorageService.set('cartItems', cartItemList);
-            localStorageService.set('amounts', +localStorageService.get('amounts') + 1);
+    this.addCartItem = function (curitem) {
 
-            return cartItemList;
-        };
+      var cartItemList = localStorageService.get('cartItems') || [];
 
-        this.reduceCartItem = function (curitem) {
+      if (_.any(cartItemList, function (item) {
+        if (item.item.barcode === curitem.barcode) {
+          return true;
+        }
+      })) {
+        _.find(cartItemList, function (object) {
+          if (object.item.barcode === curitem.barcode) {
+            object.num++;
+          }
+        });
+      } else {
+        var cartItem = {'item': curitem, 'num': 1};
+        cartItemList.push(cartItem);
+      }
+      localStorageService.set('cartItems', cartItemList);
+      localStorageService.set('amounts', +localStorageService.get('amounts') + 1);
 
-            var cartItemList = localStorageService.get('cartItems');
+      return cartItemList;
+    };
 
-            var index = _.findIndex(cartItemList, {'item': curitem});
-            cartItemList[index].num--;
-            if (cartItemList[index].num > 0) {
-                _.find(cartItemList, function (object) {
-                    if (object.item.barcode === cartItemList[index].item.barcode) {
-                        object.num = cartItemList[index].num;
-                    }
-                });
-            } else {
-                _.remove(cartItemList, cartItemList[index]);
-            }
-            localStorageService.set('cartItems', cartItemList);
-            localStorageService.set('amounts', +localStorageService.get('amounts') - 1);
+    this.reduceCartItem = function (curitem) {
 
-            return  cartItemList;
-        };
+      var cartItemList = localStorageService.get('cartItems');
 
-        this.totalPrice = function (cartItemList) {
+      var index = _.findIndex(cartItemList, {'item': curitem});
+      cartItemList[index].num--;
+      if (cartItemList[index].num > 0) {
+        _.find(cartItemList, function (object) {
+          if (object.item.barcode === cartItemList[index].item.barcode) {
+            object.num = cartItemList[index].num;
+          }
+        });
+      } else {
+        _.remove(cartItemList, cartItemList[index]);
+      }
+      localStorageService.set('cartItems', cartItemList);
+      localStorageService.set('amounts', +localStorageService.get('amounts') - 1);
 
-            var array = _.map(cartItemList, function (cartItem) {
-                return cartItem.item.price * cartItem.num;
-            });
+      return  cartItemList;
+    };
 
-            var sum = 0;
-            _.forEach(array, function (item) {
-                sum += item;
-            })
+    this.totalPrice = function (cartItemList) {
 
-            return sum;
-        };
-    });
+      var array = _.map(cartItemList, function (cartItem) {
+        return cartItem.item.price * cartItem.num;
+      });
+
+      var sum = 0;
+      _.forEach(array, function (item) {
+        sum += item;
+      })
+
+      return sum;
+    };
+
+    this.cleanCart = function() {
+      localStorageService.remove('cartItems');
+      localStorageService.set('amounts', 0);
+    };
+  });
