@@ -1,26 +1,26 @@
 'use strict';
 
 describe('Service: itemService', function() {
-    var service;
+    var itemService, localStorageService;
 
-    beforeEach(function() {
-
+    beforeEach(function () {
         module('angularLetusgoApp');
-
-        inject(function(itemService) {
-            service = itemService;
+        inject(function ($injector) {
+            itemService = $injector.get('itemService');
+            localStorageService = $injector.get('localStorageService');
         });
-
     });
 
     it('should have a loadAllItems function', function() {
 
-        expect(angular.isFunction(service.loadAllItems)).toBe(true);
+        expect(angular.isFunction(itemService.loadAllItems)).toBe(true);
     });
 
     it('should return items', function() {
 
-        var result = service.loadAllItems();
+        spyOn(localStorageService, 'set');
+        var result = itemService.loadAllItems();
+        expect(localStorageService.set).toHaveBeenCalled();
         expect(result.length > 0).toBe(true);
     });
 
