@@ -2,21 +2,51 @@
 
 describe('Controller: InventoryCtrl', function () {
 
-  // load the controller's module
-  beforeEach(module('angularLetusgoApp'));
+  var $scope, cartService, createController;
 
-  var InventoryCtrl,
-    scope;
+  beforeEach(function () {
+    module('angularLetusgoApp');
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    InventoryCtrl = $controller('InventoryCtrl', {
-      $scope: scope
+    inject(function ($injector) {
+
+      $scope = $injector.get('$rootScope').$new();
+      cartService = $injector.get('cartService');
+
+      var $controller = $injector.get('$controller');
+
+      createController = function () {
+        return $controller('InventoryCtrl', {
+          $scope: $scope,
+          cartService: cartService
+        });
+      };
     });
-  }));
 
-//    it('should attach a list of awesomeThings to the scope', function () {
-//        expect(scope.awesomeThings.length).toBe(3);
-//    });
+    createController();
+
+  });
+
+  it('should call getCartItem in cartService', function () {
+    spyOn(cartService, 'getCartItem');
+//    $scope.cartItemList;
+    expect(cartService.getCartItem).toHaveBeenCalled(true);
+  });
+
+  it('should call totalPrice in cartService', function () {
+    spyOn(cartService, 'totalPrice');
+//    $scope.inventorytotal;
+    expect(cartService.totalPrice).toHaveBeenCalled(true);
+  });
+
+  it('should call cleanCart in cartService when click pay button', function () {
+    spyOn(cartService, 'cleanCart');
+    $scope.okPayClick();
+    expect(cartService.cleanCart).toHaveBeenCalled(true);
+  });
+
+  it('should emit to parent controller when click pay button', function () {
+    spyOn($rootScope, '$emit');
+    $scope.okPayClick();
+    expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
+  });
 });

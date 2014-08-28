@@ -2,36 +2,55 @@
 
 describe('Controller: ListCtrl', function () {
 
-  // load the controller's module
-  beforeEach(module('angularLetusgoApp'));
+  var $scope, itemService, cartService, createController;
 
-  var ListCtrl,
-    scope;
+  beforeEach(function () {
+    module('angularLetusgoApp');
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    ListCtrl = $controller('ListCtrl', {
-      $scope: scope
+    inject(function ($injector) {
+
+      $scope = $injector.get('$rootScope').$new();
+      itemService = $injector.get('itemService');
+      cartService = $injector.get('cartService');
+
+      var $controller = $injector.get('$controller');
+
+      createController = function () {
+        return $controller('ListCtrl', {
+          $scope: $scope,
+          itemService: itemService,
+          cartService: cartService
+        });
+      };
     });
-  }));
 
-//    var mockService = {
-//        notes: ['note1', 'note2'], //仅仅初始化两个项目
-//        get: function() {
-//            return this.notes;
-//        },
-//        put: function(content) {
-//            this.notes.push(content);
-//        }
-//    };
+    createController();
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.items.length).toBe(6);
   });
 
-//    it('should call cart service add cart item function if a add button is clicked on', function() {
-//
-//    });
+  it('should emit to parent controller when come in list', function () {
+    spyOn($rootScope, '$emit');
+    expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-inlist');
+  });
+
+  it('should call loadAllItems in itemservice', function () {
+    spyOn(itemService, 'loadAllItems');
+//    $scope.items;
+    expect(itemService.loadAllItems).toHaveBeenCalled(true);
+  });
+
+  it('should call addCartItem in cartService', function () {
+    spyOn(cartService, 'addCartItem');
+    var item = {'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
+    $scope.addCartItem(item);
+    expect(cartService.addCartItem).toHaveBeenCalled(true);
+  });
+
+  it('should emit to parent controller when add cart item', function () {
+    spyOn($rootScope, '$emit');
+    var item = {'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
+    $scope.addCartItem(item);
+    expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
+  });
 
 });

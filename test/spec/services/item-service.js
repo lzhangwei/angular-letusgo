@@ -26,6 +26,7 @@ describe('Service: itemService', function () {
     expect(result.length).toBe(6);
     expect(result[0].barcode).toBe('ITEM000000');
     expect(result[3].barcode).toBe('ITEM000003');
+    expect(result[5].barcode).toBe('ITEM000005');
   });
 
 });
