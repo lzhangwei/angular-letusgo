@@ -21,7 +21,9 @@ describe('Service: itemService', function() {
         spyOn(localStorageService, 'set');
         var result = itemService.loadAllItems();
         expect(localStorageService.set).toHaveBeenCalled();
-        expect(result.length > 0).toBe(true);
+        expect(result.length).toBe(6);
+        expect(result[0].barcode).toBe('ITEM000000');
+        expect(result[3].barcode).toBe('ITEM000003');
     });
 
 });
