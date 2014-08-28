@@ -20,5 +20,4 @@ angular.module('angularLetusgoApp')
             return items;
         };
 
-
     });

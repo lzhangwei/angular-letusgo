@@ -2,6 +2,7 @@
 
 describe('Service: cartService', function() {
     var service;
+//    var storageService;
     var cartItemList;
 
     beforeEach(function() {
@@ -11,6 +12,7 @@ describe('Service: cartService', function() {
 
         inject(function(cartService) {
             service = cartService;
+//            storageService = localStorageService;
         });
 
         cartItemList = [
@@ -22,17 +24,17 @@ describe('Service: cartService', function() {
     });
 
     it('should have sum,categoryCartItem,addCartItem and reduceCartItem functions', function() {
-        expect(angular.isFunction(service.sum)).toBe(true);
+        expect(angular.isFunction(service.totalPrice)).toBe(true);
         expect(angular.isFunction(service.categoryCartItem)).toBe(true);
         expect(angular.isFunction(service.addCartItem)).toBe(true);
         expect(angular.isFunction(service.reduceCartItem)).toBe(true);
     });
 
     it('should return the sum value', function() {
-        var array = [2,4,5,9];
-        var result = service.sum(array);
 
-        expect(result).toBe(20);
+        var result = service.totalPrice(cartItemList);
+
+        expect(result).toBe(42);
     });
 
     it('should category the cart item list', function() {
@@ -41,14 +43,11 @@ describe('Service: cartService', function() {
     });
 
     it('should add cart item into cart item list', function() {
-        var item = {'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
-        var newCartItemList = service.addCartItem(item, cartItemList);
-        if(_.any(cartItemList, {'item': item})){
-            var newCartItem = _.find(newCartItemList, {'item': item});
-            expect(newCartItem.num).toBe(2);
-        } else {
-            var newCartItem = _.find(newCartItemList, {'item': item});
-            expect(newCartItem.num).toBe(1);
-        }
+        var item1 = {'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
+        var item2 = {'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
+        var newCartItemList = service.addCartItem(item1);
+        expect(newCartItemList[0].num).toBe(1);
+        newCartItemList = service.addCartItem(item2);
+        expect(newCartItemList[0].num).toBe(2);
     });
 });

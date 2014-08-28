@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Service: loadService', function() {
+describe('Service: itemService', function() {
     var service;
 
     beforeEach(function() {
 
         module('angularLetusgoApp');
 
-        inject(function(loadService) {
-            service = loadService;
+        inject(function(itemService) {
+            service = itemService;
         });
 
     });

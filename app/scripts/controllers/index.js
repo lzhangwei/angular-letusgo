@@ -1,6 +1,3 @@
-/**
- * Created by zhangwei on 14-8-20.
- */
 'use strict';
 
 angular.module('angularLetusgoApp')
