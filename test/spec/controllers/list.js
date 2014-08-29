@@ -29,28 +29,31 @@ describe('Controller: ListCtrl', function () {
   });
 
   it('should emit to parent controller when come in list', function () {
-    spyOn($rootScope, '$emit');
-    expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-inlist');
+    spyOn($scope, '$emit');
+    createController();
+    expect($scope.$emit).toHaveBeenCalledWith('to-parent-inlist');
   });
 
-  it('should call loadAllItems in itemservice', function () {
+  it('should return all items to items', function () {
     spyOn(itemService, 'loadAllItems');
-//    $scope.items;
-    expect(itemService.loadAllItems).toHaveBeenCalled(true);
+    createController();
+    var result = itemService.loadAllItems();
+    expect($scope.items).toEqual(result);
   });
 
   it('should call addCartItem in cartService', function () {
     spyOn(cartService, 'addCartItem');
     var item = {'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
     $scope.addCartItem(item);
-    expect(cartService.addCartItem).toHaveBeenCalled(true);
+    expect(cartService.addCartItem).toHaveBeenCalledWith(item);
   });
 
   it('should emit to parent controller when add cart item', function () {
-    spyOn($rootScope, '$emit');
+    spyOn($scope, '$emit');
+    spyOn(cartService, 'addCartItem');
     var item = {'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
     $scope.addCartItem(item);
-    expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
+    expect($scope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
   });
 
 });

@@ -28,13 +28,11 @@ describe('Controller: InventoryCtrl', function () {
 
   it('should call getCartItem in cartService', function () {
     spyOn(cartService, 'getCartItem');
-//    $scope.cartItemList;
     expect(cartService.getCartItem).toHaveBeenCalled(true);
   });
 
   it('should call totalPrice in cartService', function () {
     spyOn(cartService, 'totalPrice');
-//    $scope.inventorytotal;
     expect(cartService.totalPrice).toHaveBeenCalled(true);
   });
 
