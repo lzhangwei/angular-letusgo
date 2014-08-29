@@ -22,9 +22,9 @@ describe('Controller: MainCtrl', function () {
   });
 
   it('should emit to parent controller', function () {
-    spyOn($rootScope, '$emit');
+    spyOn($scope, '$emit');
     createController();
-    expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-inmain');
+    expect($scope.$emit).toHaveBeenCalledWith('to-parent-inmain');
   });
 
 });
