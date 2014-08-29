@@ -6,7 +6,7 @@ angular.module('angularLetusgoApp')
 
     this.getAmount = function() {
       if (localStorageService.get('amounts') === undefined) {
-        localStorageService.set(0)
+        localStorageService.set(0);
       }
       return localStorageService.get('amounts');
     };
@@ -76,7 +76,7 @@ angular.module('angularLetusgoApp')
       var sum = 0;
       _.forEach(array, function (item) {
         sum += item;
-      })
+      });
 
       return sum;
     };

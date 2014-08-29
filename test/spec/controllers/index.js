@@ -2,27 +2,26 @@
 
 describe('Controller: IndexController', function () {
 
-  var $scope, cartService, createController;
+  var $rootScope, $scope, cartService, createController;
 
   beforeEach(function () {
     module('angularLetusgoApp');
 
     inject(function ($injector) {
 
-      $scope = $injector.get('$rootScope').$new();
+      $rootScope = $injector.get('$rootScope');
+      $scope = $rootScope.$new();
       cartService = $injector.get('cartService');
 
       var $controller = $injector.get('$controller');
 
       createController = function () {
-        return $controller('InventoryCtrl', {
+        return $controller('IndexController', {
           $scope: $scope,
           cartService: cartService
         });
       };
     });
-
-    createController();
 
   });
 
@@ -33,34 +32,56 @@ describe('Controller: IndexController', function () {
   });
 
   it('should listen for the to-parent-changeamounts broadcast and called getAmount', function () {
-    var listener = jasmine.createSpy('listener');
-    $scope.$on('to-parent-changeamounts', listener);
+    createController();
+    $scope.$digest();
     spyOn(cartService, 'getAmount').andReturn(6);
-    $scope.$emit('to-parent-changeamounts');
-    expect(listener).toHaveBeenCalled();
-    var amounts = cartService.getAmount();
-    expect(amounts).toBe(6);
+
+    $rootScope.$broadcast('to-parent-changeamounts');
+    $scope.$digest();
+
+    expect(cartService.getAmount).toHaveBeenCalled();
+    expect($scope.amounts).toBe(6);
   });
 
   it('should listen for the to-parent-inmain broadcast and set bar active', function () {
-    var listener = jasmine.createSpy('listener');
-    $scope.$on('to-parent-inmain', listener);
-    $scope.$emit('to-parent-inmain');
-    expect(listener).toHaveBeenCalled();
+    createController();
+    $scope.$digest();
+
+    $rootScope.$broadcast('to-parent-inmain');
+    $scope.$digest();
+
+    expect($scope.activeMainbar).toBe(true);
+    expect($scope.activeListbar).toBe(false);
+    expect($scope.activeCartbar).toBe(false);
   });
 
   it('should listen for the to-parent-inlist broadcast and set bar active', function () {
-    var listener = jasmine.createSpy('listener');
-    $scope.$on('to-parent-inlist', listener);
-    $scope.$emit('to-parent-inlist');
-    expect(listener).toHaveBeenCalled();
+
+    spyOn(cartService, 'getAmount');
+
+    createController();
+    $scope.$digest();
+
+    $rootScope.$broadcast('to-parent-inlist');
+    $scope.$digest();
+
+    expect(cartService.getAmount.callCount).toEqual(2);
+
+    expect($scope.activeMainbar).toBe(false);
+    expect($scope.activeListbar).toBe(true);
+    expect($scope.activeCartbar).toBe(false);
   });
 
   it('should listen for the to-parent-incart broadcast and set bar active', function () {
-    var listener = jasmine.createSpy('listener');
-    $scope.$on('to-parent-incart', listener);
-    $scope.$emit('to-parent-incart');
-    expect(listener).toHaveBeenCalled();
+    createController();
+    $scope.$digest();
+
+    $rootScope.$broadcast('to-parent-incart');
+    $scope.$digest();
+
+    expect($scope.activeMainbar).toBe(false);
+    expect($scope.activeListbar).toBe(false);
+    expect($scope.activeCartbar).toBe(true);
   });
 
 });
