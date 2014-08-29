@@ -103,7 +103,7 @@ describe('Service: cartService', function () {
     var cartItemList2 = cartService.reduceCartItem(item2);
     expect(cartItemList2.length).toBe(2);
     expect(cartItemList2[0].item.barcode).toEqual('ITEM000001');
-    expect(cartItemList2[1].item.barcode).toEqual('ITEM000001');
+    expect(cartItemList2[1].item.barcode).toEqual('ITEM000003');
   });
 
   it('should return the total price', function () {
@@ -114,12 +114,12 @@ describe('Service: cartService', function () {
   });
 
   it('called local storage service set and get function 1 times when click pay ok button', function () {
-    spyOn(localStorageService, 'get');
+    spyOn(localStorageService, 'remove');
     spyOn(localStorageService, 'set');
 
     cartService.cleanCart();
 
-    expect(localStorageService.get.callCount).toEqual(1);
+    expect(localStorageService.remove.callCount).toEqual(1);
     expect(localStorageService.set.callCount).toEqual(1);
   });
 
