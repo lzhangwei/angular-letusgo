@@ -26,43 +26,41 @@ describe('Controller: IndexController', function () {
 
   });
 
-  it('should call setAmount in cartService when amounts is undefined', function () {
-    spyOn(cartService, 'getAmount').andReturn(undefined);
-    spyOn(cartService, 'setAmount');
-    expect(cartService.setAmount).toHaveBeenCalled(true);
-  });
-
-  it('should call getCartItem in cartService', function () {
-    spyOn(cartService, 'getCartItem');
-    expect(cartService.getCartItem).toHaveBeenCalled(true);
+  it('should call getAmount in cartService and return to amounts', function () {
+    spyOn(cartService, 'getAmount');
+    var amount = cartService.getAmount();
+    expect($scope.amounts).toBe(amount);
   });
 
   it('should listen for the to-parent-changeamounts broadcast and called getAmount', function () {
+    var listener = jasmine.createSpy('listener');
+    $scope.$on('to-parent-changeamounts', listener);
     spyOn(cartService, 'getAmount').andReturn(6);
-    $scope.$broadcast('to-parent-changeamounts');
-    expect(cartService.getAmount).toHaveBeenCalled(true);
-    expect($scope.amounts).toBe(6);
+    $scope.$emit('to-parent-changeamounts');
+    expect(listener).toHaveBeenCalled();
+    var amounts = cartService.getAmount();
+    expect(amounts).toBe(6);
   });
 
   it('should listen for the to-parent-inmain broadcast and set bar active', function () {
-    $scope.$broadcast('to-parent-inmain');
-    expect($scope.activeMainbar).toBe(true);
-    expect($scope.activeListbar).toBe(false);
-    expect($scope.activeCartbar).toBe(false);
+    var listener = jasmine.createSpy('listener');
+    $scope.$on('to-parent-inmain', listener);
+    $scope.$emit('to-parent-inmain');
+    expect(listener).toHaveBeenCalled();
   });
 
   it('should listen for the to-parent-inlist broadcast and set bar active', function () {
-    $scope.$broadcast('to-parent-inlist');
-    expect($scope.activeMainbar).toBe(false);
-    expect($scope.activeListbar).toBe(true);
-    expect($scope.activeCartbar).toBe(false);
+    var listener = jasmine.createSpy('listener');
+    $scope.$on('to-parent-inlist', listener);
+    $scope.$emit('to-parent-inlist');
+    expect(listener).toHaveBeenCalled();
   });
 
   it('should listen for the to-parent-incart broadcast and set bar active', function () {
-    $scope.$broadcast('to-parent-incart');
-    expect($scope.activeMainbar).toBe(false);
-    expect($scope.activeListbar).toBe(false);
-    expect($scope.activeCartbar).toBe(true);
+    var listener = jasmine.createSpy('listener');
+    $scope.$on('to-parent-incart', listener);
+    $scope.$emit('to-parent-incart');
+    expect(listener).toHaveBeenCalled();
   });
 
 });

@@ -34,8 +34,8 @@ describe('Controller: CartCtrl', function () {
   });
 
   it('should emit to parent controller when come in cart', function () {
-    spyOn($rootScope, '$emit');
-    expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-incart');
+    spyOn($scope, '$emit');
+    expect($scope.$emit).toHaveBeenCalledWith('to-parent-incart');
   });
 
   it('should call getCartItem in cartService', function () {
@@ -79,10 +79,10 @@ describe('Controller: CartCtrl', function () {
     });
 
     it('should emit to parent controller when add cart item', function () {
-      spyOn($rootScope, '$emit');
+      spyOn($scope, '$emit');
       var cartItem = {item:{'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'},num:1};
       $scope.addCartItemClick(cartItem);
-      expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
+      expect($scope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
     });
 
   });
@@ -114,10 +114,10 @@ describe('Controller: CartCtrl', function () {
     });
 
     it('should emit to parent controller when add cart item', function () {
-      spyOn($rootScope, '$emit');
+      spyOn($scope, '$emit');
       var cartItem = {item:{'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'},num:1};
       $scope.reduceCartItemClick(cartItem);
-      expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
+      expect($scope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
     });
 
   });

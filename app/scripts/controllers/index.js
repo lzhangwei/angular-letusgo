@@ -2,9 +2,6 @@
 
 angular.module('angularLetusgoApp')
   .controller('IndexController', function ($scope, cartService) {
-    if (cartService.getAmount() === undefined) {
-      cartService.setAmount(0);
-    }
     $scope.amounts = cartService.getAmount();
 
     $scope.$on('to-parent-changeamounts', function () {

@@ -5,6 +5,9 @@ angular.module('angularLetusgoApp')
     };
 
     this.getAmount = function() {
+      if (localStorageService.get('amounts') === undefined) {
+        localStorageService.set(0)
+      }
       return localStorageService.get('amounts');
     };
 
