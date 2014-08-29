@@ -26,25 +26,29 @@ describe('Controller: InventoryCtrl', function () {
 
   });
 
-  it('should call getCartItem in cartService', function () {
+  it('should call getCartItem in cartService and return to cartItemList', function () {
     spyOn(cartService, 'getCartItem');
-    expect(cartService.getCartItem).toHaveBeenCalled(true);
+    createController();
+    var cartItems = cartService.getCartItem();
+    expect($scope.cartItemList).toEqual(cartItems);
   });
 
-  it('should call totalPrice in cartService', function () {
+  it('should call totalPrice in cartService and return to totalPrice', function () {
     spyOn(cartService, 'totalPrice');
-    expect(cartService.totalPrice).toHaveBeenCalled(true);
+    var totalPrice = cartService.totalPrice($scope.cartItemList);
+    expect($scope.totalPrice).toEqual(totalPrice);
   });
 
   it('should call cleanCart in cartService when click pay button', function () {
     spyOn(cartService, 'cleanCart');
+    spyOn($scope, '$emit');
     $scope.okPayClick();
-    expect(cartService.cleanCart).toHaveBeenCalled(true);
+    expect(cartService.cleanCart).toHaveBeenCalled();
   });
 
   it('should emit to parent controller when click pay button', function () {
-    spyOn($rootScope, '$emit');
+    spyOn($scope, '$emit');
     $scope.okPayClick();
-    expect($rootScope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
+    expect($scope.$emit).toHaveBeenCalledWith('to-parent-changeamounts');
   });
 });
