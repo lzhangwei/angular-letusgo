@@ -35,11 +35,17 @@ describe('Service: cartService', function () {
     expect(result).toEqual(cartItemList);
   });
 
-  it('should return the cartItemList', function () {
+  it('should return the amount when amount is not undefined', function () {
     spyOn(localStorageService, 'get').andReturn(6);
     var result = cartService.getAmount();
-
     expect(result).toBe(6);
+  });
+
+  it('should call local storage set function when amount is undefined', function () {
+    spyOn(localStorageService, 'get').andReturn(undefined);
+    spyOn(localStorageService, 'set');
+    cartService.getAmount();
+    expect(localStorageService.set).toHaveBeenCalled();
   });
 
   it('should called the set function', function () {
