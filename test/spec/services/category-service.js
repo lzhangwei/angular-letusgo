@@ -21,6 +21,13 @@ describe('Service: CategoryService', function () {
     ];
   });
 
+  it('should set the categoryList into local storage', function () {
+    spyOn(localStorageService, 'set');
+    CategoryService.setAllCategoryInfo(categoryList);
+
+    expect(localStorageService.set).toHaveBeenCalled();
+  });
+
   it('should return the categoryList', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     var result = CategoryService.getAllCategoryInfo();
