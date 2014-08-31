@@ -3,13 +3,13 @@
  */
 'use strict';
 
-describe('Service: CategoryService', function () {
-  var localStorageService, CategoryService, categoryList;
+describe('Service: categoryService', function () {
+  var localStorageService, categoryService, categoryList;
 
   beforeEach(function () {
     module('angularLetusgoApp');
     inject(function ($injector) {
-      CategoryService = $injector.get('CategoryService');
+      categoryService = $injector.get('categoryService');
       localStorageService = $injector.get('localStorageService');
     });
 
@@ -21,23 +21,26 @@ describe('Service: CategoryService', function () {
     ];
   });
 
-  it('should set the categoryList into local storage', function () {
+  it('should return categoryList', function () {
+
     spyOn(localStorageService, 'set');
-    CategoryService.setAllCategoryInfo(categoryList);
+    var result = categoryService.loadAllCategoryInfo();
 
     expect(localStorageService.set).toHaveBeenCalled();
+
+    expect(result.length).toBe(4);
   });
 
   it('should return the categoryList', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
-    var result = CategoryService.getAllCategoryInfo();
+    var result = categoryService.getAllCategoryInfo();
 
     expect(result).toEqual(categoryList);
   });
 
   it('should call local storage get function when get category info', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
-    CategoryService.getAllCategoryInfo();
+    categoryService.getAllCategoryInfo();
 
     expect(localStorageService.get).toHaveBeenCalled();
   });
@@ -45,7 +48,7 @@ describe('Service: CategoryService', function () {
   it('should add category info into category list', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     var categoryInfo = {id: 5, name: '文具'};
-    var result = CategoryService.addCategoryInfo(categoryInfo);
+    var result = categoryService.addCategoryInfo(categoryInfo);
     expect(result.length).toBe(5);
     expect(result[3]).toEqual(categoryInfo);
   });
@@ -54,7 +57,7 @@ describe('Service: CategoryService', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     spyOn(localStorageService, 'set');
     var categoryInfo = {id: 5, name: '文具'};
-    CategoryService.addCategoryInfo(categoryInfo);
+    categoryService.addCategoryInfo(categoryInfo);
     expect(localStorageService.get.callCount).toEqual(1);
     expect(localStorageService.set.callCount).toEqual(1);
   });
@@ -62,7 +65,7 @@ describe('Service: CategoryService', function () {
   it('should remove category info into category list', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     var categoryInfo = {id: 4, name: '食品'};
-    var result = CategoryService.removeCategoryInfo(categoryInfo);
+    var result = categoryService.removeCategoryInfo(categoryInfo);
     expect(result.length).toBe(3);
   });
 
@@ -70,7 +73,7 @@ describe('Service: CategoryService', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     spyOn(localStorageService, 'set');
     var categoryInfo = {id: 4, name: '食品'};
-    CategoryService.removeCategoryInfo(categoryInfo);
+    categoryService.removeCategoryInfo(categoryInfo);
     expect(localStorageService.get.callCount).toEqual(1);
     expect(localStorageService.set.callCount).toEqual(1);
   });
@@ -78,7 +81,7 @@ describe('Service: CategoryService', function () {
   it('should update category info into category list', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     var categoryInfo = {id: 4, name: '文具'};
-    var result = CategoryService.updateCategoryInfo(categoryInfo);
+    var result = categoryService.updateCategoryInfo(categoryInfo);
     expect(result[3]).toEqual(categoryInfo);
   });
 
@@ -86,7 +89,7 @@ describe('Service: CategoryService', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     spyOn(localStorageService, 'set');
     var categoryInfo = {id: 4, name: '文具'};
-    CategoryService.updateCategoryInfo(categoryInfo);
+    categoryService.updateCategoryInfo(categoryInfo);
     expect(localStorageService.get.callCount).toEqual(1);
     expect(localStorageService.set.callCount).toEqual(1);
   });
