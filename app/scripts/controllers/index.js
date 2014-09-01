@@ -12,6 +12,7 @@ angular.module('angularLetusgoApp')
       $scope.activeMainbar = true;
       $scope.activeListbar = false;
       $scope.activeCartbar = false;
+      $scope.activeManagebar = false;
     });
 
     $scope.$on('to-parent-inlist', function () {
@@ -19,12 +20,21 @@ angular.module('angularLetusgoApp')
       $scope.activeMainbar = false;
       $scope.activeListbar = true;
       $scope.activeCartbar = false;
+      $scope.activeManagebar = false;
     });
 
     $scope.$on('to-parent-incart', function () {
       $scope.activeMainbar = false;
       $scope.activeListbar = false;
       $scope.activeCartbar = true;
+      $scope.activeManagebar = false;
+    });
+
+    $scope.$on('to-parent-manage', function () {
+      $scope.activeMainbar = false;
+      $scope.activeListbar = false;
+      $scope.activeCartbar = false;
+      $scope.activeManagebar = true;
     });
 
   });
