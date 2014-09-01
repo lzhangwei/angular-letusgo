@@ -3,7 +3,7 @@
  */
 'use strict';
 
-xdescribe('Controller: CategoryCtrl', function () {
+describe('Controller: CategoryCtrl', function () {
 
   var $scope, categoryService, createController, categoryList;
 
@@ -47,17 +47,19 @@ xdescribe('Controller: CategoryCtrl', function () {
   });
 
   it('should add category info into category list', function () {
-    spyOn(categoryService, 'addCategoryInfo');
+    spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
+    categoryList.push({id: 5, name: '文具'});
+    spyOn(categoryService, 'addCategoryInfo').andReturn(categoryList);
     createController();
-    $scope.categorys = categoryList;
-    $scope.addcategory = {id: 5, name: '文具'};
     $scope.addCategoryInfo();
     expect(categoryService.addCategoryInfo).toHaveBeenCalled();
     expect($scope.categorys.length).toEqual(5);
   });
 
   it('should remove category info into category list', function () {
-    spyOn(categoryService, 'removeCategoryInfo');
+    spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
+    categoryList.splice(2,1);
+    spyOn(categoryService, 'removeCategoryInfo').andReturn(categoryList);
     createController();
     var item = {id: 3, name: '生活用品'};
     $scope.removeCategoryInfo(item);
@@ -66,11 +68,13 @@ xdescribe('Controller: CategoryCtrl', function () {
   });
 
   it('should update category info into category list', function () {
-    spyOn(categoryService, 'updateCategoryInfo');
+    spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
+    categoryList[2] = {id: 3, name: '文具'};
+    spyOn(categoryService, 'updateCategoryInfo').andReturn(categoryList);
     createController();
     var item = {id: 3, name: '文具'};
-    $scope.updateCategoryInfo(item);
-    expect(categoryService.updateCategoryInfo).toHaveBeenCalledWith(item);
+    $scope.updateCategoryInfo();
+    expect(categoryService.updateCategoryInfo).toHaveBeenCalled();
     expect($scope.categorys[2].name).toEqual('文具');
   });
 
