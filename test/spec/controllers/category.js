@@ -72,7 +72,6 @@ describe('Controller: CategoryCtrl', function () {
     categoryList[2] = {id: 3, name: '文具'};
     spyOn(categoryService, 'updateCategoryInfo').andReturn(categoryList);
     createController();
-    var item = {id: 3, name: '文具'};
     $scope.updateCategoryInfo();
     expect(categoryService.updateCategoryInfo).toHaveBeenCalled();
     expect($scope.categorys[2].name).toEqual('文具');
