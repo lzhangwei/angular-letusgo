@@ -14,11 +14,13 @@ angular.module('angularLetusgoApp')
 
     this.removeCategoryInfo = function (categoryInfo) {
       var categoryList = localStorageService.get('categorys');
+      var num = 0;
       _.forEach(categoryList, function (item, index) {
         if (item.id === categoryInfo.id) {
-          categoryList.splice(index, 1);
+          num = index;
         }
       });
+      categoryList.splice(num, 1);
       localStorageService.set('categorys', categoryList);
       return categoryList;
     };
