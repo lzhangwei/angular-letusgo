@@ -21,20 +21,10 @@ xdescribe('Service: categoryService', function () {
     ];
   });
 
-  it('should return categoryList', function () {
-
-    spyOn(localStorageService, 'set');
-    var result = categoryService.loadAllCategoryInfo();
-
-    expect(localStorageService.set).toHaveBeenCalled();
-
-    expect(result.length).toBe(4);
-  });
-
   it('should return the categoryList', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     var result = categoryService.getAllCategoryInfo();
-
+    expect(localStorageService.get).toHaveBeenCalled();
     expect(result).toEqual(categoryList);
   });
 
