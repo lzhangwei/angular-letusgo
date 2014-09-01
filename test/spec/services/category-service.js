@@ -3,7 +3,7 @@
  */
 'use strict';
 
-xdescribe('Service: categoryService', function () {
+describe('Service: categoryService', function () {
   var localStorageService, categoryService, categoryList;
 
   beforeEach(function () {
@@ -19,6 +19,13 @@ xdescribe('Service: categoryService', function () {
       {id: 3, name: '生活用品'},
       {id: 4, name: '食品'}
     ];
+  });
+
+  it('should have some functions', function () {
+    expect(angular.isFunction(categoryService.getAllCategoryInfo)).toBe(true);
+    expect(angular.isFunction(categoryService.addCategoryInfo)).toBe(true);
+    expect(angular.isFunction(categoryService.removeCategoryInfo)).toBe(true);
+    expect(angular.isFunction(categoryService.updateCategoryInfo)).toBe(true);
   });
 
   it('should return the categoryList', function () {
@@ -39,7 +46,7 @@ xdescribe('Service: categoryService', function () {
     var categoryInfo = {id: 5, name: '文具'};
     var result = categoryService.addCategoryInfo(categoryInfo);
     expect(result.length).toBe(5);
-    expect(result[3]).toEqual(categoryInfo);
+    expect(result[4]).toEqual(categoryInfo);
   });
 
   it('should call local storage get and set function when add category info', function () {

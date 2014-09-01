@@ -1,7 +1,7 @@
 angular.module('angularLetusgoApp')
   .service('cartService', function (localStorageService) {
     this.getCartItem = function() {
-      return localStorageService.get('cartItems');;
+      return localStorageService.get('cartItems');
     };
 
     this.getAmount = function() {

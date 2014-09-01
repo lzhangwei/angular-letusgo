@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('angularLetusgoApp')
-  .service('itemService', function (localStorageService, categoryService) {
+  .service('itemService', function (localStorageService) {
 
     this.loadAllItems = function () {
 
