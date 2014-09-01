@@ -39,6 +39,14 @@ angular
         templateUrl: 'views/inventory.html',
         controller: 'InventoryCtrl'
       })
+      .when('/category', {
+        templateUrl: 'views/manage-category.html',
+        controller: 'CategoryCtrl'
+      })
+      .when('/product', {
+        templateUrl: 'views/manage-product.html',
+        controller: 'ProductCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
