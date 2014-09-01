@@ -36,7 +36,7 @@ xdescribe('Controller: ProductCtrl', function () {
   it('should emit to parent controller when come in product manage', function () {
     spyOn($scope, '$emit');
     createController();
-    expect($scope.$emit).toHaveBeenCalledWith('to-parent-product');
+    expect($scope.$emit).toHaveBeenCalledWith('to-parent-manage');
   });
 
   it('should load all product info list', function () {

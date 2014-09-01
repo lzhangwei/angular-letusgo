@@ -37,7 +37,7 @@ xdescribe('Controller: CategoryCtrl', function () {
   it('should emit to parent controller when come in category manage', function () {
     spyOn($scope, '$emit');
     createController();
-    expect($scope.$emit).toHaveBeenCalledWith('to-parent-category');
+    expect($scope.$emit).toHaveBeenCalledWith('to-parent-manage');
   });
 
   it('should load all category info list', function () {
