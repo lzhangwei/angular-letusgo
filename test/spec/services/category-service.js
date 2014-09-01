@@ -24,7 +24,6 @@ xdescribe('Service: categoryService', function () {
   it('should return the categoryList', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     var result = categoryService.getAllCategoryInfo();
-    expect(localStorageService.get).toHaveBeenCalled();
     expect(result).toEqual(categoryList);
   });
 
