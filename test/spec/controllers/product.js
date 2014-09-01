@@ -3,7 +3,7 @@
  */
 'use strict';
 
-xdescribe('Controller: ProductCtrl', function () {
+describe('Controller: ProductCtrl', function () {
 
   var $scope, productService, createController, productList;
 
@@ -40,36 +40,41 @@ xdescribe('Controller: ProductCtrl', function () {
   });
 
   it('should load all product info list', function () {
-    spyOn(productService, 'getAllProduct').andReturn(productList);
+    spyOn(productService, 'getAllProductInfo').andReturn(productList);
     createController();
-    expect($scope.productList).toEqual(productList);
+    expect($scope.products).toEqual(productList);
   });
 
   it('should add product info into product list', function () {
-    spyOn(productService, 'addProductInfo');
-    createController();
+    spyOn(productService, 'getAllProductInfo').andReturn(productList);
     var product = {'barcode': 'ITEM000003', 'name': '荔枝', 'unit': '斤', 'price': 15.00, 'category': '水果'};
-    $scope.addProductInfo(product);
-    expect(productService.addProductInfo).toHaveBeenCalledWith(product);
-    expect($scope.productList.length).toEqual(4);
+    productList.push(product);
+    spyOn(productService, 'addProductInfo').andReturn(productList);
+    createController();
+    $scope.addProductInfo();
+    expect(productService.addProductInfo).toHaveBeenCalled();
+    expect($scope.products.length).toEqual(4);
   });
 
   it('should remove product info into product list', function () {
-    spyOn(productService, 'removeProductInfo');
+    spyOn(productService, 'getAllProductInfo').andReturn(productList);
+    productList.splice(1,1);
+    spyOn(productService, 'removeProductInfo').andReturn(productList);
     createController();
     var product = {'barcode': 'ITEM000001', 'name': '雪碧', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
     $scope.removeProductInfo(product);
     expect(productService.removeProductInfo).toHaveBeenCalledWith(product);
-    expect($scope.productList.length).toEqual(2);
+    expect($scope.products.length).toEqual(2);
   });
 
   it('should update product info into product list', function () {
-    spyOn(productService, 'updateProductInfo');
+    spyOn(productService, 'getAllProductInfo').andReturn(productList);
+    productList[1] = {'barcode': 'ITEM000001', 'name': '果粒橙', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
+    spyOn(productService, 'updateProductInfo').andReturn(productList);
     createController();
-    var product = {'barcode': 'ITEM000001', 'name': '果粒橙', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
-    $scope.updateProductInfo(product);
-    expect(productService.updateProductInfo).toHaveBeenCalledWith(product);
-    expect($scope.productList[1]).toEqual(product);
+    $scope.updateProductInfo();
+    expect(productService.updateProductInfo).toHaveBeenCalled();
+    expect($scope.products[1].name).toEqual('果粒橙');
   });
 
 });
