@@ -1,7 +1,7 @@
 /**
  * Created by zhangwei on 14-9-1.
  */
-xdescribe('Service: productService', function () {
+describe('Service: productService', function () {
   var localStorageService, productService, productList;
 
   beforeEach(function () {
@@ -21,7 +21,7 @@ xdescribe('Service: productService', function () {
   it('should return productList', function () {
 
     spyOn(localStorageService, 'get').andReturn(productList);
-    var result = productService.getAllProduct();
+    var result = productService.getAllProductInfo();
 
     expect(localStorageService.get).toHaveBeenCalled();
 

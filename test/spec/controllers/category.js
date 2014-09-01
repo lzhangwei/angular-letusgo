@@ -41,18 +41,19 @@ xdescribe('Controller: CategoryCtrl', function () {
   });
 
   it('should load all category info list', function () {
-    spyOn(categoryService, 'loadAllCategoryInfo').andReturn(categoryList);
+    spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
     createController();
-    expect($scope.categoryList).toEqual(categoryList);
+    expect($scope.categorys).toEqual(categoryList);
   });
 
   it('should add category info into category list', function () {
     spyOn(categoryService, 'addCategoryInfo');
     createController();
-    var item = {id: 5, name: '文具'};
-    $scope.addCategoryInfo(item);
-    expect(categoryService.addCategoryInfo).toHaveBeenCalledWith(item);
-    expect($scope.categoryList.length).toEqual(5);
+    $scope.categorys = categoryList;
+    $scope.addcategory = {id: 5, name: '文具'};
+    $scope.addCategoryInfo();
+    expect(categoryService.addCategoryInfo).toHaveBeenCalled();
+    expect($scope.categorys.length).toEqual(5);
   });
 
   it('should remove category info into category list', function () {
@@ -61,7 +62,7 @@ xdescribe('Controller: CategoryCtrl', function () {
     var item = {id: 3, name: '生活用品'};
     $scope.removeCategoryInfo(item);
     expect(categoryService.removeCategoryInfo).toHaveBeenCalledWith(item);
-    expect($scope.categoryList.length).toEqual(3);
+    expect($scope.categorys.length).toEqual(3);
   });
 
   it('should update category info into category list', function () {
@@ -70,7 +71,7 @@ xdescribe('Controller: CategoryCtrl', function () {
     var item = {id: 3, name: '文具'};
     $scope.updateCategoryInfo(item);
     expect(categoryService.updateCategoryInfo).toHaveBeenCalledWith(item);
-    expect($scope.categoryList[2].name).toEqual('文具');
+    expect($scope.categorys[2].name).toEqual('文具');
   });
 
 });
