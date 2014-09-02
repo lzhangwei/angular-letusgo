@@ -15,7 +15,10 @@ angular.module('angularLetusgoApp')
       var item6 = {'barcode': 'ITEM000005', 'name': '方便面', 'unit': '袋', 'price': 4.50, 'category': '食品'};
       var items = [item1, item2, item3, item4, item5, item6];
 
-      localStorageService.set('items', items);
+      var items = localStorageService.get('items');
+      if (items == undefined) {
+        localStorageService.set('items', items);
+      }
 
       var categoryList = [
         {id: 1, name: '饮料'},
@@ -24,7 +27,10 @@ angular.module('angularLetusgoApp')
         {id: 4, name: '食品'}
       ];
 
-      localStorageService.set('categorys',categoryList);
+      var categorys = localStorageService.get('categorys');
+      if (categorys == undefined) {
+        localStorageService.set('categorys', categoryList);
+      }
 
       return items;
     };

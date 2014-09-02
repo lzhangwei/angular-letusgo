@@ -2,11 +2,13 @@
  * Created by zhangwei on 14-9-1.
  */
 angular.module('angularLetusgoApp')
-  .controller('ProductCtrl', function ($scope, productService) {
+  .controller('ProductCtrl', function ($scope, productService,categoryService) {
 
     $scope.$emit('to-parent-manage');
 
     $scope.addproduct = {};
+
+    $scope.categorys = categoryService.getAllCategoryInfo();
 
     $scope.products = productService.getAllProductInfo();
 
