@@ -58,7 +58,7 @@ describe('Controller: ProductCtrl', function () {
 
   it('should remove product info into product list', function () {
     spyOn(productService, 'getAllProductInfo').andReturn(productList);
-    productList.splice(1,1);
+    productList.splice(1, 1);
     spyOn(productService, 'removeProductInfo').andReturn(productList);
     createController();
     var product = {'barcode': 'ITEM000001', 'name': '雪碧', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};

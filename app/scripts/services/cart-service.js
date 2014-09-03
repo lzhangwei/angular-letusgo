@@ -1,18 +1,18 @@
 angular.module('angularLetusgoApp')
   .service('cartService', function (localStorageService) {
-    this.getCartItem = function() {
+    this.getCartItem = function () {
       return localStorageService.get('cartItems');
     };
 
-    this.getAmount = function() {
+    this.getAmount = function () {
       if (localStorageService.get('amounts') === undefined) {
         localStorageService.set(0);
       }
       return localStorageService.get('amounts');
     };
 
-    this.setAmount = function(amount) {
-      localStorageService.set('amounts',amount);
+    this.setAmount = function (amount) {
+      localStorageService.set('amounts', amount);
     };
 
     this.categoryCartItem = function (cartItemList) {
@@ -81,7 +81,7 @@ angular.module('angularLetusgoApp')
       return sum;
     };
 
-    this.cleanCart = function() {
+    this.cleanCart = function () {
       localStorageService.remove('cartItems');
       localStorageService.set('amounts', 0);
     };

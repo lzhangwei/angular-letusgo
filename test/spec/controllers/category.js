@@ -58,7 +58,7 @@ describe('Controller: CategoryCtrl', function () {
 
   it('should remove category info into category list', function () {
     spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
-    categoryList.splice(2,1);
+    categoryList.splice(2, 1);
     spyOn(categoryService, 'removeCategoryInfo').andReturn(categoryList);
     createController();
     var item = {id: 3, name: '生活用品'};
