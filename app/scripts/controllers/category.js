@@ -23,8 +23,8 @@ angular.module('angularLetusgoApp')
       $scope.newcategory = categoryInfo;
     };
 
-    $scope.addCategoryInfo = function() {
-      $scope.addcategory.id = $scope.categorys[$scope.categorys.length-1].id + 1;
+    $scope.addCategoryInfo = function () {
+      $scope.addcategory.id = $scope.categorys[$scope.categorys.length - 1].id + 1;
       $scope.categorys = categoryService.addCategoryInfo($scope.addcategory);
       $scope.addcategory = {};
     };
