@@ -1,88 +1,91 @@
-angular.module('angularLetusgoApp')
-  .service('cartService', function (localStorageService) {
-    this.getCartItem = function () {
-      return localStorageService.get('cartItems');
-    };
+'use strict';
+(function (_) {
+  angular.module('angularLetusgoApp')
+    .service('cartService', function (localStorageService) {
+      this.getCartItem = function () {
+        return localStorageService.get('cartItems');
+      };
 
-    this.getAmount = function () {
-      if (localStorageService.get('amounts') === undefined) {
-        localStorageService.set(0);
-      }
-      return localStorageService.get('amounts');
-    };
-
-    this.setAmount = function (amount) {
-      localStorageService.set('amounts', amount);
-    };
-
-    this.categoryCartItem = function (cartItemList) {
-      var cartItemGroup = _.map(_.groupBy(cartItemList, function (cartItem) {
-        return cartItem.item.category;
-      }));
-      return cartItemGroup;
-    };
-
-    this.addCartItem = function (curitem) {
-
-      var cartItemList = localStorageService.get('cartItems') || [];
-
-      if (_.any(cartItemList, function (item) {
-        if (item.item.barcode === curitem.barcode) {
-          return true;
+      this.getAmount = function () {
+        if (localStorageService.get('amounts') === undefined) {
+          localStorageService.set(0);
         }
-      })) {
-        _.find(cartItemList, function (object) {
-          if (object.item.barcode === curitem.barcode) {
-            object.num++;
+        return localStorageService.get('amounts');
+      };
+
+      this.setAmount = function (amount) {
+        localStorageService.set('amounts', amount);
+      };
+
+      this.categoryCartItem = function (cartItemList) {
+        var cartItemGroup = _.map(_.groupBy(cartItemList, function (cartItem) {
+          return cartItem.item.category;
+        }));
+        return cartItemGroup;
+      };
+
+      this.addCartItem = function (curitem) {
+
+        var cartItemList = localStorageService.get('cartItems') || [];
+
+        if (_.any(cartItemList, function (item) {
+          if (item.item.barcode === curitem.barcode) {
+            return true;
           }
+        })) {
+          _.find(cartItemList, function (object) {
+            if (object.item.barcode === curitem.barcode) {
+              object.num++;
+            }
+          });
+        } else {
+          var cartItem = {'item': curitem, 'num': 1};
+          cartItemList.push(cartItem);
+        }
+        localStorageService.set('cartItems', cartItemList);
+        localStorageService.set('amounts', +localStorageService.get('amounts') + 1);
+
+        return cartItemList;
+      };
+
+      this.reduceCartItem = function (curitem) {
+
+        var cartItemList = localStorageService.get('cartItems');
+
+        var index = _.findIndex(cartItemList, {'item': curitem});
+        cartItemList[index].num--;
+        if (cartItemList[index].num > 0) {
+          _.find(cartItemList, function (object) {
+            if (object.item.barcode === cartItemList[index].item.barcode) {
+              object.num = cartItemList[index].num;
+            }
+          });
+        } else {
+          _.remove(cartItemList, cartItemList[index]);
+        }
+        localStorageService.set('cartItems', cartItemList);
+        localStorageService.set('amounts', +localStorageService.get('amounts') - 1);
+
+        return  cartItemList;
+      };
+
+      this.totalPrice = function (cartItemList) {
+
+        var array = _.map(cartItemList, function (cartItem) {
+          return cartItem.item.price * cartItem.num;
         });
-      } else {
-        var cartItem = {'item': curitem, 'num': 1};
-        cartItemList.push(cartItem);
-      }
-      localStorageService.set('cartItems', cartItemList);
-      localStorageService.set('amounts', +localStorageService.get('amounts') + 1);
 
-      return cartItemList;
-    };
-
-    this.reduceCartItem = function (curitem) {
-
-      var cartItemList = localStorageService.get('cartItems');
-
-      var index = _.findIndex(cartItemList, {'item': curitem});
-      cartItemList[index].num--;
-      if (cartItemList[index].num > 0) {
-        _.find(cartItemList, function (object) {
-          if (object.item.barcode === cartItemList[index].item.barcode) {
-            object.num = cartItemList[index].num;
-          }
+        var sum = 0;
+        _.forEach(array, function (item) {
+          sum += item;
         });
-      } else {
-        _.remove(cartItemList, cartItemList[index]);
-      }
-      localStorageService.set('cartItems', cartItemList);
-      localStorageService.set('amounts', +localStorageService.get('amounts') - 1);
 
-      return  cartItemList;
-    };
+        return sum;
+      };
 
-    this.totalPrice = function (cartItemList) {
-
-      var array = _.map(cartItemList, function (cartItem) {
-        return cartItem.item.price * cartItem.num;
-      });
-
-      var sum = 0;
-      _.forEach(array, function (item) {
-        sum += item;
-      });
-
-      return sum;
-    };
-
-    this.cleanCart = function () {
-      localStorageService.remove('cartItems');
-      localStorageService.set('amounts', 0);
-    };
-  });
+      this.cleanCart = function () {
+        localStorageService.remove('cartItems');
+        localStorageService.set('amounts', 0);
+      };
+    });
+})(window._);

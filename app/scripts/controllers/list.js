@@ -13,5 +13,5 @@ angular.module('angularLetusgoApp')
     $scope.addCartItem = function (item) {
       cartService.addCartItem(item);
       $scope.$emit('to-parent-changeamounts');
-    }
+    };
   });
