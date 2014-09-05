@@ -55,6 +55,14 @@ angular
         templateUrl: 'views/manage-product.html',
         controller: 'ProductCtrl'
       })
+      .when('/product-add', {
+        templateUrl: 'views/manage-product-add.html',
+        controller: 'ProductAddCtrl'
+      })
+      .when('/product-update', {
+        templateUrl: 'views/manage-product-update.html',
+        controller: 'ProductUpdateCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
