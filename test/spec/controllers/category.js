@@ -5,7 +5,7 @@
 
 describe('Controller: CategoryCtrl', function () {
 
-  var $scope, categoryService, createController, categoryList;
+  var $scope, $location, categoryService, createController, categoryList;
 
   beforeEach(function () {
     module('angularLetusgoApp');
@@ -13,6 +13,7 @@ describe('Controller: CategoryCtrl', function () {
     inject(function ($injector) {
 
       $scope = $injector.get('$rootScope').$new();
+      $location = $injector.get('$location');
       categoryService = $injector.get('categoryService');
 
       var $controller = $injector.get('$controller');
@@ -20,6 +21,7 @@ describe('Controller: CategoryCtrl', function () {
       createController = function () {
         return $controller('CategoryCtrl', {
           $scope: $scope,
+          $location: $location,
           categoryService: categoryService
         });
       };
@@ -46,16 +48,6 @@ describe('Controller: CategoryCtrl', function () {
     expect($scope.categorys).toEqual(categoryList);
   });
 
-  it('should add category info into category list', function () {
-    spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
-    categoryList.push({id: 5, name: '文具'});
-    spyOn(categoryService, 'addCategoryInfo').andReturn(categoryList);
-    createController();
-    $scope.addCategoryInfo();
-    expect(categoryService.addCategoryInfo).toHaveBeenCalled();
-    expect($scope.categorys.length).toEqual(5);
-  });
-
   it('should remove category info into category list', function () {
     spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
     categoryList.splice(2, 1);
@@ -67,14 +59,17 @@ describe('Controller: CategoryCtrl', function () {
     expect($scope.categorys.length).toEqual(3);
   });
 
-  it('should update category info into category list', function () {
-    spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
-    categoryList[2] = {id: 3, name: '文具'};
-    spyOn(categoryService, 'updateCategoryInfo').andReturn(categoryList);
+  it('should come into category add when click add category', function () {
     createController();
-    $scope.updateCategoryInfo();
-    expect(categoryService.updateCategoryInfo).toHaveBeenCalled();
-    expect($scope.categorys[2].name).toEqual('文具');
+    $scope.addCategoryClick();
+    expect($location.path() === '/category-add').toBe(true);
+  });
+
+  it('should come into category update when click update category', function () {
+    createController();
+    var categoryInfo = {id: 1, name: '饮料'};
+    $scope.updateClick(categoryInfo);
+    expect($location.path() === '/category-update').toBe(true);
   });
 
 });
