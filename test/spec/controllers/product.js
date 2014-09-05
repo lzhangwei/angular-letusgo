@@ -5,7 +5,7 @@
 
 describe('Controller: ProductCtrl', function () {
 
-  var $scope, productService, createController, productList;
+  var $scope, $location, productService, createController, productList;
 
   beforeEach(function () {
     module('angularLetusgoApp');
@@ -13,6 +13,7 @@ describe('Controller: ProductCtrl', function () {
     inject(function ($injector) {
 
       $scope = $injector.get('$rootScope').$new();
+      $location = $injector.get('$location');
       productService = $injector.get('productService');
 
       var $controller = $injector.get('$controller');
@@ -20,6 +21,7 @@ describe('Controller: ProductCtrl', function () {
       createController = function () {
         return $controller('ProductCtrl', {
           $scope: $scope,
+          $location: $location,
           productService: productService
         });
       };
@@ -45,17 +47,6 @@ describe('Controller: ProductCtrl', function () {
     expect($scope.products).toEqual(productList);
   });
 
-  it('should add product info into product list', function () {
-    spyOn(productService, 'getAllProductInfo').andReturn(productList);
-    var product = {'barcode': 'ITEM000003', 'name': '荔枝', 'unit': '斤', 'price': 15.00, 'category': '水果'};
-    productList.push(product);
-    spyOn(productService, 'addProductInfo').andReturn(productList);
-    createController();
-    $scope.addProductInfo();
-    expect(productService.addProductInfo).toHaveBeenCalled();
-    expect($scope.products.length).toEqual(4);
-  });
-
   it('should remove product info into product list', function () {
     spyOn(productService, 'getAllProductInfo').andReturn(productList);
     productList.splice(1, 1);
@@ -67,14 +58,17 @@ describe('Controller: ProductCtrl', function () {
     expect($scope.products.length).toEqual(2);
   });
 
-  it('should update product info into product list', function () {
-    spyOn(productService, 'getAllProductInfo').andReturn(productList);
-    productList[1] = {'barcode': 'ITEM000001', 'name': '果粒橙', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
-    spyOn(productService, 'updateProductInfo').andReturn(productList);
+  it('should come into product add when click add product', function () {
     createController();
-    $scope.updateProductInfo();
-    expect(productService.updateProductInfo).toHaveBeenCalled();
-    expect($scope.products[1].name).toEqual('果粒橙');
+    $scope.addProductClick();
+    expect($location.path() === '/product-add').toBe(true);
+  });
+
+  it('should come into product update when click update product', function () {
+    createController();
+    var product = {'barcode': 'ITEM000003', 'name': '荔枝', 'unit': '斤', 'price': 15.00, 'category': '水果'};
+    $scope.updateProductClick(product);
+    expect($location.path() === '/product-update').toBe(true);
   });
 
 });

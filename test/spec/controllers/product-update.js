@@ -3,7 +3,7 @@
  */
 'use strict';
 
-describe('Controller: ProductCtrl', function () {
+describe('Controller: ProductUpdateCtrl', function () {
 
   var $scope, productService, createController, productList;
 
@@ -33,5 +33,19 @@ describe('Controller: ProductCtrl', function () {
 
   });
 
+  it('should emit to parent controller when come in ProductUpdateCtrl', function () {
+    spyOn($scope, '$emit');
+    createController();
+    expect($scope.$emit).toHaveBeenCalledWith('to-parent-manage');
+  });
+
+  it('should update product info into product list', function () {
+    spyOn(productService, 'getAllProductInfo').andReturn(productList);
+    productList[1] = {'barcode': 'ITEM000001', 'name': '果粒橙', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
+    spyOn(productService, 'updateProductInfo').andReturn(productList);
+    createController();
+    $scope.updateProductInfo();
+    expect(productService.updateProductInfo).toHaveBeenCalled();
+  });
 
 });
