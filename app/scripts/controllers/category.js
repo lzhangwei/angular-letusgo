@@ -3,31 +3,23 @@
  */
 'use strict';
 angular.module('angularLetusgoApp')
-  .controller('CategoryCtrl', function ($scope, categoryService) {
+  .controller('CategoryCtrl', function ($scope, $location, categoryService) {
 
     $scope.$emit('to-parent-manage');
 
-    $scope.addcategory = {};
-
     $scope.categorys = categoryService.getAllCategoryInfo();
-
-    $scope.updateCategoryInfo = function () {
-      categoryService.updateCategoryInfo($scope.newcategory);
-      $scope.newcategory = {};
-    };
 
     $scope.removeCategoryInfo = function (categoryInfo) {
       $scope.categorys = categoryService.removeCategoryInfo(categoryInfo);
     };
 
-    $scope.update = function (categoryInfo) {
-      $scope.newcategory = categoryInfo;
+    $scope.updateClick = function (categoryInfo) {
+      $location.path('/category-update');
+      $location.search({'id':categoryInfo.id});
     };
 
-    $scope.addCategoryInfo = function () {
-      $scope.addcategory.id = $scope.categorys[$scope.categorys.length - 1].id + 1;
-      $scope.categorys = categoryService.addCategoryInfo($scope.addcategory);
-      $scope.addcategory = {};
+    $scope.addCategoryClick = function () {
+      $location.path('/category-add');
     };
 
   });

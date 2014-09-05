@@ -7,6 +7,11 @@
         return localStorageService.get('categorys');
       };
 
+      this.getCategoryInfoById = function (id) {
+        var categorys = localStorageService.get('categorys');
+        return _.find(categorys,{'id':id});
+      };
+
       this.addCategoryInfo = function (categoryInfo) {
         var categoryList = localStorageService.get('categorys');
         categoryList.push(categoryInfo);

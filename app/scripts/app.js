@@ -43,6 +43,14 @@ angular
         templateUrl: 'views/manage-category.html',
         controller: 'CategoryCtrl'
       })
+      .when('/category-add', {
+        templateUrl: 'views/manage-category-add.html',
+        controller: 'CategoryAddCtrl'
+      })
+      .when('/category-update', {
+        templateUrl: 'views/manage-category-update.html',
+        controller: 'CategoryUpdateCtrl'
+      })
       .when('/product', {
         templateUrl: 'views/manage-product.html',
         controller: 'ProductCtrl'
