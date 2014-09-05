@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('angularLetusgoApp')
-  .controller('ProductCtrl', function ($scope, productService, categoryService) {
+  .controller('ProductCtrl', function ($scope, $location, productService, categoryService) {
 
     $scope.$emit('to-parent-manage');
 
@@ -13,10 +13,6 @@ angular.module('angularLetusgoApp')
 
     $scope.products = productService.getAllProductInfo();
 
-    $scope.updateProductInfo = function () {
-      productService.updateProductInfo($scope.updateproduct);
-      $scope.updateproduct = {};
-    };
 
     $scope.removeProductInfo = function (productInfo) {
       $scope.products = productService.removeProductInfo(productInfo);
@@ -26,11 +22,13 @@ angular.module('angularLetusgoApp')
       $scope.updateproduct = productInfo;
     };
 
-    $scope.addProductInfo = function () {
-      var id = +$scope.products[$scope.products.length - 1].barcode.substring(9);
-      $scope.addproduct.barcode = $scope.products[$scope.products.length - 1].barcode.substring(0, 9) + (id + 1);
-      $scope.products = productService.addProductInfo($scope.addproduct);
-      $scope.addproduct = {};
+    $scope.updateProductClick = function (productInfo) {
+      $location.path('/product-update');
+      $location.search({'barcode':productInfo.barcode});
+    };
+
+    $scope.addProductClick = function () {
+      $location.path('/product-add');
     };
 
   });
