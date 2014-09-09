@@ -15,7 +15,7 @@ angular.module('angularLetusgoApp')
 
     $scope.updateClick = function (categoryInfo) {
       $location.path('/category-update');
-      $location.search({'id':categoryInfo.id});
+      $location.search({'id': categoryInfo.id});
     };
 
     $scope.addCategoryClick = function () {

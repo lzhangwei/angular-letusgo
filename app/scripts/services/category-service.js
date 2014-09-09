@@ -7,9 +7,14 @@
         return localStorageService.get('categorys');
       };
 
+      this.getCategoryInfoList = function (page, num) {
+        var categoryInfoList = localStorageService.get('categorys');
+        return categoryInfoList.slice((page - 1) * num,(page - 1) * num+num);
+      };
+
       this.getCategoryInfoById = function (id) {
         var categorys = localStorageService.get('categorys');
-        return _.find(categorys,{'id':id});
+        return _.find(categorys, {'id': id});
       };
 
       this.addCategoryInfo = function (categoryInfo) {
