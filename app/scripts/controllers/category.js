@@ -14,8 +14,7 @@ angular.module('angularLetusgoApp')
     $scope.currentPage = 1;
 
     $scope.pageCount = function () {
-      var t = $scope.categorys.length / $scope.itemsPerPage;
-      var maxPage = $scope.categorys.length % $scope.itemsPerPage === 0 ? t : t + 1;
+      var maxPage = Math.ceil($scope.categorys.length / $scope.itemsPerPage);
       return maxPage;
     };
 
