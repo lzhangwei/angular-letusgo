@@ -17,7 +17,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="category in categorys | filter:{name: search}">
+  <tr
+    ng-repeat="category in categorys | pageitems: (currentPage-1)*itemsPerPage | limitTo: itemsPerPage | filter:{name: search}">
     <td>{{ category.name }}</td>
     <td><a href="javascript:void(0)" ng-click="updateClick(category)">修改</a> | <a href="javascript:void(0)"
                                                                                   ng-click="removeCategoryInfo(category)">删除</a>
@@ -25,4 +26,19 @@
     </td>
   </tr>
   </tbody>
+  <tfoot>
+  <td colspan="3">
+    <ul class="pagination">
+      <li ng-class="{disabled:prevPageDisabled()}">
+        <a href ng-click="prevPage()"> « Prev</a>
+      </li>
+      <li ng-repeat="n in range()"
+          ng-class="{active: n === currentPage}">
+        <a href="javascript:void(0)" ng-click="setPage(n)">{{n}}</a></li>
+      <li ng-class="{disabled:nextPageDisabled()}">
+        <a href ng-click="nextPage()">Next »</a>
+      </li>
+    </ul>
+  </td>
+  </tfoot>
 </table>

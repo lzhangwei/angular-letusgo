@@ -9,6 +9,52 @@ angular.module('angularLetusgoApp')
 
     $scope.categorys = categoryService.getAllCategoryInfo();
 
+
+    $scope.itemsPerPage = 5;
+    $scope.currentPage = 1;
+
+    $scope.pageCount = function () {
+      var t = $scope.categorys.length / $scope.itemsPerPage;
+      var maxPage = $scope.categorys.length % $scope.itemsPerPage === 0 ? t : t + 1;
+      return maxPage;
+    };
+
+    $scope.range = function () {
+      var pages = [];
+      var i = 1;
+      var maxPage = $scope.pageCount();
+      while (i <= maxPage) {
+        pages.push(i);
+        i++;
+      }
+      return pages;
+    };
+
+    $scope.prevPage = function () {
+      if ($scope.currentPage > 1) {
+        $scope.currentPage--;
+      }
+    };
+
+    $scope.prevPageDisabled = function () {
+      return $scope.currentPage === 1 ? true : false;
+    };
+
+    $scope.nextPage = function () {
+      if ($scope.currentPage < $scope.pageCount()) {
+        $scope.currentPage++;
+      }
+    };
+
+    $scope.nextPageDisabled = function () {
+      return $scope.currentPage === $scope.pageCount() ? true : false;
+    };
+
+    $scope.setPage = function (n) {
+      $scope.currentPage = n;
+    };
+
+
     $scope.removeCategoryInfo = function (categoryInfo) {
       $scope.categorys = categoryService.removeCategoryInfo(categoryInfo);
     };
@@ -21,5 +67,4 @@ angular.module('angularLetusgoApp')
     $scope.addCategoryClick = function () {
       $location.path('/category-add');
     };
-
   });
