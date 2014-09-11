@@ -72,4 +72,53 @@ describe('Controller: CategoryCtrl', function () {
     expect($location.path() === '/category-update').toBe(true);
   });
 
+  it('should return page count', function(){
+    spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
+    createController();
+    var pagecount = $scope.pageCount();
+    expect(pagecount).toBe(1);
+  });
+
+  it('should return page range',function() {
+    createController();
+    spyOn($scope, 'pageCount').andReturn(2);
+    var range = $scope.range();
+    expect(range).toEqual([1,2]);
+  });
+
+  it('should change current page when click previous',function() {
+    createController();
+    $scope.currentPage = 2;
+    $scope.prevPage();
+    expect($scope.currentPage).toBe(1);
+  });
+
+  it('should return true when current page is 1',function() {
+    createController();
+    $scope.currentPage = 1;
+    expect($scope.prevPageDisabled()).toBe(true);
+  });
+
+  it('should return true when current page is max',function() {
+    createController();
+    spyOn($scope, 'pageCount').andReturn(3);
+    $scope.currentPage = 3;
+    expect($scope.nextPageDisabled()).toBe(true);
+  });
+
+  it('should add page number when click next page',function() {
+    createController();
+    $scope.currentPage = 1;
+    spyOn($scope, 'pageCount').andReturn(3);
+    $scope.nextPage();
+    expect($scope.currentPage).toBe(2);
+  });
+
+  it('should set page with parameter',function() {
+    createController();
+    $scope.currentPage = 2;
+    $scope.setPage(4);
+    expect($scope.currentPage).toBe(4);
+  });
+
 });
