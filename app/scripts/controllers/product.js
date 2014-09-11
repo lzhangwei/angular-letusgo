@@ -7,8 +7,6 @@ angular.module('angularLetusgoApp')
 
     $scope.$emit('to-parent-manage');
 
-    $scope.addproduct = {};
-
     $scope.categorys = categoryService.getAllCategoryInfo();
 
     $scope.products = productService.getAllProductInfo();
