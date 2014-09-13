@@ -1,6 +1,3 @@
-/**
- * Created by zhangwei on 14-8-29.
- */
 'use strict';
 
 describe('Service: categoryService', function () {

@@ -1,6 +1,3 @@
-/**
- * Created by zhangwei on 14-9-1.
- */
 'use strict';
 angular.module('angularLetusgoApp')
   .controller('ProductCtrl', function ($scope, $location, productService, categoryService) {

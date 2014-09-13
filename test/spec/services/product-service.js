@@ -1,6 +1,4 @@
-/**
- * Created by zhangwei on 14-9-1.
- */
+'use strict';
 describe('Service: productService', function () {
   var localStorageService, productService, productList;
 

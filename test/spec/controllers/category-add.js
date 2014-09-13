@@ -1,6 +1,3 @@
-/**
- * Created by zhangwei on 14-9-5.
- */
 'use strict';
 
 describe('Controller: CategoryAddCtrl', function () {

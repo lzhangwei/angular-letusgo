@@ -1,6 +1,3 @@
-/**
- * Created by zhangwei on 14-8-25.
- */
 'use strict';
 angular.module('angularLetusgoApp')
   .service('itemService', function (localStorageService) {

@@ -1,6 +1,3 @@
-/**
- * Created by zhangwei on 14-9-5.
- */
 'use strict';
 angular.module('angularLetusgoApp')
   .controller('CategoryUpdateCtrl', function ($scope, $location, categoryService) {
