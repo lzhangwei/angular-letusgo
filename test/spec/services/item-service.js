@@ -18,11 +18,6 @@ describe('Service: itemService', function () {
     items = [item1, item2, item3, item4, item5, item6];
   });
 
-  it('should have a loadAllItems function', function () {
-
-    expect(angular.isFunction(itemService.loadAllItems)).toBe(true);
-  });
-
   it('should return items', function () {
 
     spyOn(localStorageService, 'set');
