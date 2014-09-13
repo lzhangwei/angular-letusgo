@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('angularLetusgoApp')
-  .controller('CategoryAddCtrl', function ($scope, categoryService) {
+  .controller('CategoryAddCtrl', function ($scope, $location, categoryService) {
 
     $scope.$emit('to-parent-manage');
 
@@ -15,6 +15,7 @@ angular.module('angularLetusgoApp')
       $scope.addcategory.id = $scope.categorys[$scope.categorys.length - 1].id + 1;
       $scope.categorys = categoryService.addCategoryInfo($scope.addcategory);
       $scope.addcategory = {};
+      $location.path('/category');
     };
 
   });

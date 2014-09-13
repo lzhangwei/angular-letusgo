@@ -13,6 +13,7 @@ angular.module('angularLetusgoApp')
     $scope.updateCategoryInfo = function () {
       categoryService.updateCategoryInfo($scope.newcategory);
       $scope.newcategory = {};
+      $location.path('/category');
     };
 
   });
