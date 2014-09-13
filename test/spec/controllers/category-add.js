@@ -42,6 +42,7 @@ describe('Controller: CategoryAddCtrl', function () {
     categoryList.push({id: 5, name: '文具'});
     spyOn(categoryService, 'addCategoryInfo').andReturn(categoryList);
     createController();
+    $scope.addcategory = {id: 5, name: '文具'};
     $scope.addCategoryInfo();
     expect(categoryService.addCategoryInfo).toHaveBeenCalled();
     expect($scope.categorys.length).toEqual(5);

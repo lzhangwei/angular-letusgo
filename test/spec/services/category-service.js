@@ -60,7 +60,7 @@ describe('Service: categoryService', function () {
     spyOn(localStorageService, 'set');
     var categoryInfo = {id: 4, name: '食品'};
     categoryService.removeCategoryInfo(categoryInfo);
-    expect(localStorageService.get.callCount).toEqual(1);
+    expect(localStorageService.get.callCount).toEqual(2);
     expect(localStorageService.set.callCount).toEqual(1);
   });
 

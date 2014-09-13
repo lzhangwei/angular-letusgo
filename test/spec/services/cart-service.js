@@ -30,8 +30,8 @@ describe('Service: cartService', function () {
     expect(result).toBe(6);
   });
 
-  it('should call local storage set function when amount is undefined', function () {
-    spyOn(localStorageService, 'get').andReturn(undefined);
+  it('should call local storage set function when amount is null', function () {
+    spyOn(localStorageService, 'get').andReturn(null);
     spyOn(localStorageService, 'set');
     cartService.getAmount();
     expect(localStorageService.set).toHaveBeenCalled();

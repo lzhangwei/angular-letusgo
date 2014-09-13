@@ -42,6 +42,7 @@ describe('Controller: ProductAddCtrl', function () {
     productList.push(product);
     spyOn(productService, 'addProductInfo').andReturn(productList);
     createController();
+    $scope.addproduct = {'barcode': 'ITEM000003', 'name': '荔枝', 'unit': '斤', 'price': 15.00, 'category': '水果'};
     $scope.addProductInfo();
     expect(productService.addProductInfo).toHaveBeenCalled();
   });
