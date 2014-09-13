@@ -2,6 +2,14 @@
 
 angular.module('angularLetusgoApp')
   .controller('IndexController', function ($scope, cartService) {
+
+    function barActivity(main, list, cart, manage) {
+      $scope.activeMainbar = main;
+      $scope.activeListbar = list;
+      $scope.activeCartbar = cart;
+      $scope.activeManagebar = manage;
+    }
+
     $scope.amounts = cartService.getAmount();
 
     $scope.$on('to-parent-changeamounts', function () {
@@ -9,32 +17,20 @@ angular.module('angularLetusgoApp')
     });
 
     $scope.$on('to-parent-inmain', function () {
-      $scope.activeMainbar = true;
-      $scope.activeListbar = false;
-      $scope.activeCartbar = false;
-      $scope.activeManagebar = false;
+      barActivity(true, false, false, false);
     });
 
     $scope.$on('to-parent-inlist', function () {
       $scope.amounts = cartService.getAmount();
-      $scope.activeMainbar = false;
-      $scope.activeListbar = true;
-      $scope.activeCartbar = false;
-      $scope.activeManagebar = false;
+      barActivity(false, true, false, false);
     });
 
     $scope.$on('to-parent-incart', function () {
-      $scope.activeMainbar = false;
-      $scope.activeListbar = false;
-      $scope.activeCartbar = true;
-      $scope.activeManagebar = false;
+      barActivity(false, false, true, false);
     });
 
     $scope.$on('to-parent-manage', function () {
-      $scope.activeMainbar = false;
-      $scope.activeListbar = false;
-      $scope.activeCartbar = false;
-      $scope.activeManagebar = true;
+      barActivity(false, false, false, true);
     });
 
   });
