@@ -7,8 +7,8 @@
       };
 
       this.getAmount = function () {
-        if (localStorageService.get('amounts') === undefined) {
-          localStorageService.set(0);
+        if (localStorageService.get('amounts') === null) {
+          localStorageService.set('amounts', 0);
         }
         return localStorageService.get('amounts');
       };
