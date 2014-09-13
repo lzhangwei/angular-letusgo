@@ -17,17 +17,6 @@ describe('Service: cartService', function () {
     ];
   });
 
-  it('should have some functions', function () {
-    expect(angular.isFunction(cartService.getCartItem)).toBe(true);
-    expect(angular.isFunction(cartService.getAmount)).toBe(true);
-    expect(angular.isFunction(cartService.setAmount)).toBe(true);
-    expect(angular.isFunction(cartService.totalPrice)).toBe(true);
-    expect(angular.isFunction(cartService.categoryCartItem)).toBe(true);
-    expect(angular.isFunction(cartService.addCartItem)).toBe(true);
-    expect(angular.isFunction(cartService.reduceCartItem)).toBe(true);
-    expect(angular.isFunction(cartService.cleanCart)).toBe(true);
-  });
-
   it('should return the cartItemList', function () {
     spyOn(localStorageService, 'get').andReturn(cartItemList);
     var result = cartService.getCartItem();
