@@ -9,7 +9,7 @@
 
       this.getCategoryInfoList = function (page, num) {
         var categoryInfoList = localStorageService.get('categorys');
-        return categoryInfoList.slice((page - 1) * num,(page - 1) * num+num);
+        return categoryInfoList.slice((page - 1) * num, (page - 1) * num + num);
       };
 
       this.getCategoryInfoById = function (id) {
@@ -26,7 +26,7 @@
 
       this.removeCategoryInfo = function (categoryInfo) {
         var categoryList = localStorageService.get('categorys');
-        if(isRemove(categoryInfo)){
+        if (isRemove(categoryInfo)) {
           var num = 0;
           _.forEach(categoryList, function (item, index) {
             if (item.id === categoryInfo.id) {
@@ -35,17 +35,17 @@
           });
           categoryList.splice(num, 1);
           localStorageService.set('categorys', categoryList);
-        }else{
-          
+        } else {
+          alert('该类别下有商品，无法删除！');
         }
         return categoryList;
       };
 
-      var isRemove = function(categoryInfo) {
+      var isRemove = function (categoryInfo) {
         var productList = productService.getAllProductInfo();
         var result = true;
-        _.forEach(productList, function(item){
-          if(result === true && item.category === categoryInfo.name){
+        _.forEach(productList, function (item) {
+          if (result === true && item.category === categoryInfo.name) {
             result = false;
           }
         });

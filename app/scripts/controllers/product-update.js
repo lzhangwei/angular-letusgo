@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('angularLetusgoApp')
-  .controller('ProductUpdateCtrl', function ($scope, $location, productService,categoryService) {
+  .controller('ProductUpdateCtrl', function ($scope, $location, productService, categoryService) {
 
     $scope.$emit('to-parent-manage');
 

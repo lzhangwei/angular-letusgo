@@ -10,9 +10,9 @@
         return localStorageService.get('items');
       };
 
-      this.getProductInfoById = function(barcode) {
+      this.getProductInfoById = function (barcode) {
         var products = localStorageService.get('items');
-        return _.find(products,{'id':barcode});
+        return _.find(products, {'id': barcode});
       };
 
       this.addProductInfo = function (productInfo) {
