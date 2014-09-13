@@ -16,7 +16,7 @@ angular.module('angularLetusgoApp')
       var items = [item1, item2, item3, item4, item5, item6];
 
       var itemList = localStorageService.get('items');
-      if (itemList === undefined) {
+      if (itemList === null) {
         localStorageService.set('items', items);
       }
 
@@ -28,7 +28,7 @@ angular.module('angularLetusgoApp')
       ];
 
       var categorys = localStorageService.get('categorys');
-      if (categorys === undefined) {
+      if (categorys === null) {
         localStorageService.set('categorys', categoryList);
       }
 
