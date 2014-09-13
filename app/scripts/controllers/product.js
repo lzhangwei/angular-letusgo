@@ -19,11 +19,9 @@ angular.module('angularLetusgoApp')
 
     $scope.range = function () {
       var pages = [];
-      var i = 1;
       var maxPage = $scope.pageCount();
-      while (i <= maxPage) {
+      for (var i = 1; i <= maxPage; i++) {
         pages.push(i);
-        i++;
       }
       return pages;
     };
