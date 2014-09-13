@@ -33,11 +33,7 @@ angular.module('angularLetusgoApp')
 
     $scope.isShow = function () {
       cartItemList = cartService.getCartItem();
-      if (cartItemList===null || cartItemList.length === 0) {
-        return false;
-      } else {
-        return true;
-      }
+      return !(cartItemList===null || cartItemList.length === 0);
     };
 
   });
