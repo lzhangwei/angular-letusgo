@@ -10,7 +10,7 @@
 angular.module('angularLetusgoApp')
   .controller('InventoryCtrl', function ($scope, cartService) {
 
-    $scope.curdate = moment(new Date()).format("YYYY年MM月DD日 HH:mm:ss");//未测试
+    $scope.curdate = moment(new Date()).format('YYYY年MM月DD日 HH:mm:ss');//未测试
     $scope.cartItemList = cartService.getCartItem();
 
     $scope.inventorytotal = cartService.totalPrice($scope.cartItemList);
