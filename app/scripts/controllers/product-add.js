@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('angularLetusgoApp')
-  .controller('ProductAddCtrl', function ($scope, productService, categoryService) {
+  .controller('ProductAddCtrl', function ($scope, $location, productService, categoryService) {
 
     $scope.$emit('to-parent-manage');
 
@@ -18,6 +18,7 @@ angular.module('angularLetusgoApp')
       $scope.addproduct.barcode = $scope.products[$scope.products.length - 1].barcode.substring(0, 9) + (id + 1);
       $scope.products = productService.addProductInfo($scope.addproduct);
       $scope.addproduct = {};
+      $location.path('/product');
     };
 
   });
