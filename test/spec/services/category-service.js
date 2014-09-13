@@ -18,13 +18,6 @@ describe('Service: categoryService', function () {
     ];
   });
 
-  it('should have some functions', function () {
-    expect(angular.isFunction(categoryService.getAllCategoryInfo)).toBe(true);
-    expect(angular.isFunction(categoryService.addCategoryInfo)).toBe(true);
-    expect(angular.isFunction(categoryService.removeCategoryInfo)).toBe(true);
-    expect(angular.isFunction(categoryService.updateCategoryInfo)).toBe(true);
-  });
-
   it('should return the categoryList', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     var result = categoryService.getAllCategoryInfo();
