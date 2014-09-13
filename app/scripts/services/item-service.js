@@ -2,6 +2,13 @@
 angular.module('angularLetusgoApp')
   .service('itemService', function (localStorageService) {
 
+    function setLocalStorage(name, value) {
+      var list = localStorageService.get(name);
+      if (list === null) {
+        localStorageService.set(name, value);
+      }
+    }
+
     this.loadAllItems = function () {
 
       var item1 = {'barcode': 'ITEM000000', 'name': '可口可乐', 'unit': '瓶', 'price': 3.00, 'category': '饮料'};
@@ -12,10 +19,7 @@ angular.module('angularLetusgoApp')
       var item6 = {'barcode': 'ITEM000005', 'name': '方便面', 'unit': '袋', 'price': 4.50, 'category': '食品'};
       var items = [item1, item2, item3, item4, item5, item6];
 
-      var itemList = localStorageService.get('items');
-      if (itemList === null) {
-        localStorageService.set('items', items);
-      }
+      setLocalStorage('items', items);
 
       var categoryList = [
         {id: 1, name: '饮料'},
@@ -24,10 +28,7 @@ angular.module('angularLetusgoApp')
         {id: 4, name: '食品'}
       ];
 
-      var categorys = localStorageService.get('categorys');
-      if (categorys === null) {
-        localStorageService.set('categorys', categoryList);
-      }
+      setLocalStorage('categorys', categoryList);
 
       return localStorageService.get('items');
     };
