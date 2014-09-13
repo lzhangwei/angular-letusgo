@@ -12,10 +12,14 @@ angular.module('angularLetusgoApp')
     $scope.categorys = categoryService.getAllCategoryInfo();
 
     $scope.addCategoryInfo = function () {
-      $scope.addcategory.id = $scope.categorys[$scope.categorys.length - 1].id + 1;
-      $scope.categorys = categoryService.addCategoryInfo($scope.addcategory);
-      $scope.addcategory = {};
-      $location.path('/category');
+      if($scope.addcategory.name !== undefined){
+        $scope.addcategory.id = $scope.categorys[$scope.categorys.length - 1].id + 1;
+        $scope.categorys = categoryService.addCategoryInfo($scope.addcategory);
+        $scope.addcategory = {};
+        $location.path('/category');
+      }else {
+        alert('请输入类别!');
+      }
     };
 
   });
