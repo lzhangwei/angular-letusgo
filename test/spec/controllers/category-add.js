@@ -37,7 +37,7 @@ describe('Controller: CategoryAddCtrl', function () {
     expect($scope.$emit).toHaveBeenCalledWith('to-parent-manage');
   });
 
-  it('should add category info into category list', function () {
+  it('should add category info into category list when category info is not null', function () {
     spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
     categoryList.push({id: 5, name: '文具'});
     spyOn(categoryService, 'addCategoryInfo').andReturn(categoryList);
@@ -48,4 +48,14 @@ describe('Controller: CategoryAddCtrl', function () {
     expect($scope.categorys.length).toEqual(5);
   });
 
+  it('should alert info when add category info and category info is undefined', function () {
+    spyOn(categoryService, 'getAllCategoryInfo').andReturn(categoryList);
+    spyOn(categoryService, 'addCategoryInfo').andReturn(categoryList);
+    createController();
+    $scope.addcategory.name = undefined;
+    $scope.addCategoryInfo();
+    expect($scope.tip).toEqual('请输入类别!');
+  });
+
 });
+g
