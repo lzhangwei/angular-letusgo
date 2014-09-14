@@ -7,7 +7,7 @@ angular.module('angularLetusgoApp')
       $scope.$emit(name);
     }
 
-    function updateData(cartItemList){
+    function updateData(cartItemList) {
       $scope.cartItemGroup = cartService.categoryCartItem(cartItemList);
       $scope.total = cartService.totalPrice(cartItemList);
     }
@@ -38,7 +38,7 @@ angular.module('angularLetusgoApp')
 
     $scope.isShow = function () {
       cartItemList = cartService.getCartItem();
-      return !(cartItemList===null || cartItemList.length === 0);
+      return !(cartItemList === null || cartItemList.length === 0);
     };
 
   });
