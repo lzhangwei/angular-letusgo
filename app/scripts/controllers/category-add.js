@@ -10,12 +10,12 @@ angular.module('angularLetusgoApp')
 
     $scope.addCategoryInfo = function () {
       if ($scope.addcategory.name !== undefined) {
+        $scope.tip='';
         $scope.addcategory.id = $scope.categorys[$scope.categorys.length - 1].id + 1;
         $scope.categorys = categoryService.addCategoryInfo($scope.addcategory);
-        $scope.addcategory = {};
         $location.path('/category');
       } else {
-        alert('请输入类别!');
+        $scope.tip='请输入类别!';
       }
     };
 
