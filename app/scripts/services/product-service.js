@@ -29,11 +29,8 @@
 
       this.updateProductInfo = function (productInfo) {
         var productList = localStorageService.get('items');
-        _.forEach(productList, function (item, index) {
-          if (item.barcode === productInfo.barcode) {
-            productList[index] = productInfo;
-          }
-        });
+        var index = _.findIndex(productList, {'barcode': productInfo.barcode});
+        productList[index] = productInfo;
         localStorageService.set('items', productList);
         return productList;
       };
