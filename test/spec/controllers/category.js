@@ -85,7 +85,13 @@ describe('Controller: CategoryCtrl', function () {
 
   it('should change current page when click previous',function() {
     createController();
+    spyOn($scope, 'pageCount').andReturn(3);
+
     $scope.currentPage = 2;
+    $scope.prevPage();
+    expect($scope.currentPage).toBe(1);
+
+    $scope.currentPage = 1;
     $scope.prevPage();
     expect($scope.currentPage).toBe(1);
   });
@@ -105,8 +111,13 @@ describe('Controller: CategoryCtrl', function () {
 
   it('should add page number when click next page',function() {
     createController();
-    $scope.currentPage = 1;
     spyOn($scope, 'pageCount').andReturn(3);
+
+    $scope.currentPage = 3;
+    $scope.nextPage();
+    expect($scope.currentPage).toBe(3);
+
+    $scope.currentPage = 1;
     $scope.nextPage();
     expect($scope.currentPage).toBe(2);
   });
@@ -117,5 +128,6 @@ describe('Controller: CategoryCtrl', function () {
     $scope.setPage(4);
     expect($scope.currentPage).toBe(4);
   });
+
 
 });
