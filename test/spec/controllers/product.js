@@ -87,6 +87,10 @@ describe('Controller: ProductCtrl', function () {
     $scope.currentPage = 2;
     $scope.prevPage();
     expect($scope.currentPage).toBe(1);
+
+    $scope.currentPage = 1;
+    $scope.prevPage();
+    expect($scope.currentPage).toBe(1);
   });
 
   it('should return true when current page is 1',function() {
@@ -104,10 +108,15 @@ describe('Controller: ProductCtrl', function () {
 
   it('should add page number when click next page',function() {
     createController();
-    $scope.currentPage = 1;
     spyOn($scope, 'pageCount').andReturn(3);
+
+    $scope.currentPage = 1;
     $scope.nextPage();
     expect($scope.currentPage).toBe(2);
+
+    $scope.currentPage = 3;
+    $scope.nextPage();
+    expect($scope.currentPage).toBe(3);
   });
 
   it('should set page with parameter',function() {
