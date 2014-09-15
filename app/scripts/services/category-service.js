@@ -30,10 +30,10 @@
           var index = _.findIndex(categoryList, {'id': categoryInfo.id});
           categoryList.splice(index, 1);
           localStorageService.set('categorys', categoryList);
+          return true;
         } else {
-          alert('该类别下有商品，无法删除！');
+          return false;
         }
-        return categoryList;
       };
 
       var isRemove = function (categoryInfo) {

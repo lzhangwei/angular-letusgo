@@ -5,7 +5,7 @@ angular.module('angularLetusgoApp')
     $scope.$emit('to-parent-manage');
 
     $scope.categorys = categoryService.getAllCategoryInfo();
-
+    $scope.tip = '';
 
     $scope.itemsPerPage = 5;
     $scope.currentPage = 1;
@@ -50,7 +50,13 @@ angular.module('angularLetusgoApp')
 
 
     $scope.removeCategoryInfo = function (categoryInfo) {
-      $scope.categorys = categoryService.removeCategoryInfo(categoryInfo);
+      var isRemove = categoryService.removeCategoryInfo(categoryInfo);
+      if(isRemove){
+        $scope.tip = '';
+        $scope.categorys = categoryService.getAllCategoryInfo();
+      }else{
+        $scope.tip = '该类别下有商品，无法删除！';
+      }
     };
 
     $scope.updateClick = function (categoryInfo) {
