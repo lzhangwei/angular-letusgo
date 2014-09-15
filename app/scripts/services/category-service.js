@@ -27,13 +27,8 @@
       this.removeCategoryInfo = function (categoryInfo) {
         var categoryList = localStorageService.get('categorys');
         if (isRemove(categoryInfo)) {
-          var num = 0;
-          _.forEach(categoryList, function (item, index) {
-            if (item.id === categoryInfo.id) {
-              num = index;
-            }
-          });
-          categoryList.splice(num, 1);
+          var index = _.findIndex(categoryList, {'id': categoryInfo.id});
+          categoryList.splice(index, 1);
           localStorageService.set('categorys', categoryList);
         } else {
           alert('该类别下有商品，无法删除！');
