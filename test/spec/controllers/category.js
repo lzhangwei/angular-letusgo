@@ -85,7 +85,6 @@ describe('Controller: CategoryCtrl', function () {
 
   it('should change current page when click previous',function() {
     createController();
-    spyOn($scope, 'pageCount').andReturn(3);
 
     $scope.currentPage = 2;
     $scope.prevPage();
