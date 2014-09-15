@@ -52,7 +52,7 @@ describe('Service: categoryService', function () {
     spyOn(localStorageService, 'get').andReturn(categoryList);
     var categoryInfo = {id: 4, name: '食品'};
     var result = categoryService.removeCategoryInfo(categoryInfo);
-    expect(result.length).toBe(3);
+    expect(result).toBe(true);
   });
 
   it('should call local storage get and set function when reduce category info', function () {
