@@ -65,7 +65,7 @@
           _.remove(cartItemList, cartItemList[index]);
         }
 
-        setData(cartItemList, +localStorageService.get('amounts') + 1);
+        setData(cartItemList, +localStorageService.get('amounts') - 1);
 
         return  cartItemList;
       };
