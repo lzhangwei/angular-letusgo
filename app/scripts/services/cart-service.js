@@ -60,13 +60,8 @@
 
         var index = _.findIndex(cartItemList, {'item': curitem});
         cartItemList[index].num--;
-        if (cartItemList[index].num > 0) {
-          _.find(cartItemList, function (object) {
-            if (object.item.barcode === cartItemList[index].item.barcode) {
-              object.num = cartItemList[index].num;
-            }
-          });
-        } else {
+
+        if (cartItemList[index].num <= 0) {
           _.remove(cartItemList, cartItemList[index]);
         }
 
