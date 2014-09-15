@@ -11,7 +11,6 @@ angular.module('angularLetusgoApp')
 
     $scope.updateProductInfo = function () {
       productService.updateProductInfo($scope.updateproduct);
-      $scope.updateproduct = {};
       $location.path('/product');
     };
 
