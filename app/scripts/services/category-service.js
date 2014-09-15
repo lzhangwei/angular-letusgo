@@ -49,12 +49,12 @@
 
       this.updateCategoryInfo = function (categoryInfo) {
         var categoryList = localStorageService.get('categorys');
-        _.forEach(categoryList, function (item, index) {
-          if (item.id === categoryInfo.id) {
-            categoryList[index] = categoryInfo;
-          }
-        });
+
+        var index = _.findIndex(categoryList, {'id': categoryInfo.id});
+        categoryList[index] = categoryInfo;
+
         localStorageService.set('categorys', categoryList);
+
         return categoryList;
       };
     });
