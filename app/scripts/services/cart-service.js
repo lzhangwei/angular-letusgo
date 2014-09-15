@@ -2,6 +2,12 @@
 (function (_) {
   angular.module('angularLetusgoApp')
     .service('cartService', function (localStorageService) {
+
+      function setData(cartItems, amounts) {
+        localStorageService.set('cartItems', cartItems);
+        localStorageService.set('amounts', amounts);
+      }
+
       this.getCartItem = function () {
         return localStorageService.get('cartItems');
       };
@@ -42,8 +48,8 @@
           var cartItem = {'item': curitem, 'num': 1};
           cartItemList.push(cartItem);
         }
-        localStorageService.set('cartItems', cartItemList);
-        localStorageService.set('amounts', +localStorageService.get('amounts') + 1);
+
+        setData(cartItemList, +localStorageService.get('amounts') + 1);
 
         return cartItemList;
       };
@@ -63,8 +69,8 @@
         } else {
           _.remove(cartItemList, cartItemList[index]);
         }
-        localStorageService.set('cartItems', cartItemList);
-        localStorageService.set('amounts', +localStorageService.get('amounts') - 1);
+
+        setData(cartItemList, +localStorageService.get('amounts') + 1);
 
         return  cartItemList;
       };
