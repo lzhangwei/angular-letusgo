@@ -4,7 +4,7 @@
   </div>
   <div class="panel-body">
     <div class="form-group">
-      <label class="control-label">类别</label>
+      <label class="control-label">类别</label><span class="text-danger">{{tip}}</span>
       <select class="form-control" ng-model="addproduct.category">
         <option ng-repeat="category in categorys" value="{{category.name}}">{{category.name}}</option>
       </select>

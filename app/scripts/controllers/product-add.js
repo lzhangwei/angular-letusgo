@@ -11,6 +11,7 @@ angular.module('angularLetusgoApp')
     $scope.$emit('to-parent-manage');
 
     $scope.addproduct = {};
+    $scope.tip = '';
 
     $scope.categorys = categoryService.getAllCategoryInfo();
 
@@ -22,9 +23,8 @@ angular.module('angularLetusgoApp')
         addProduct();
         $location.path('/product');
       } else {
-        alert('输入不能为空！');
+        $scope.tip = '输入项不能为空！';
       }
-
     };
 
   });
