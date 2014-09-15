@@ -34,16 +34,9 @@
 
         var cartItemList = localStorageService.get('cartItems') || [];
 
-        if (_.any(cartItemList, function (item) {
-          if (item.item.barcode === curitem.barcode) {
-            return true;
-          }
-        })) {
-          _.find(cartItemList, function (object) {
-            if (object.item.barcode === curitem.barcode) {
-              object.num++;
-            }
-          });
+        if (_.any(cartItemList, {'item': curitem})) {
+          var index = _.findIndex(cartItemList, {'item': curitem});
+          cartItemList[index].num++;
         } else {
           var cartItem = {'item': curitem, 'num': 1};
           cartItemList.push(cartItem);
