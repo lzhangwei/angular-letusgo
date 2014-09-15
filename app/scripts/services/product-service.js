@@ -21,13 +21,8 @@
 
       this.removeProductInfo = function (productInfo) {
         var productList = localStorageService.get('items');
-        var num = 0;
-        _.forEach(productList, function (item, index) {
-          if (item.barcode === productInfo.barcode) {
-            num = index;
-          }
-        });
-        productList.splice(num, 1);
+        var index = _.findIndex(productList, {'barcode': productInfo.barcode});
+        productList.splice(index, 1);
         localStorageService.set('items', productList);
         return productList;
       };
